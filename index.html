@@ -29,6 +29,8 @@
         .btn-battle { padding: 10px 20px; background: linear-gradient(180deg, #d94a2a, #a02a1a); color: #fff; border: 2px solid #ffd966; border-radius: 12px; font-size: 14px; font-weight: bold; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 4px 0 #5a1a0a, 0 0 20px rgba(217,74,42,0.5); transition: all 0.1s; white-space: nowrap; animation: pulse 2s infinite; min-width: 100px; }
         @keyframes pulse { 0%, 100% { box-shadow: 0 4px 0 #5a1a0a, 0 0 20px rgba(217,74,42,0.5); } 50% { box-shadow: 0 4px 0 #5a1a0a, 0 0 30px rgba(255,217,102,0.8); } }
         .btn-battle:active { transform: translateY(3px); box-shadow: 0 1px 0 #5a1a0a; }
+        .btn-battle.space-mode { background: linear-gradient(180deg, #7e57c2, #4527a0); box-shadow: 0 4px 0 #2a0a5a, 0 0 25px rgba(126,87,194,0.7); animation: spacePulse 2s infinite; }
+        @keyframes spacePulse { 0%, 100% { box-shadow: 0 4px 0 #2a0a5a, 0 0 25px rgba(126,87,194,0.7); } 50% { box-shadow: 0 4px 0 #2a0a5a, 0 0 40px rgba(200,150,255,1); } }
         .hangar-main { flex: 1; display: flex; gap: 8px; overflow: hidden; min-height: 0; }
         .tanks-panel { flex: 1.2; background: rgba(15, 25, 15, 0.85); border: 1px solid #6a5a3a; border-radius: 10px; padding: 8px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #6a5a3a #1a2a1a; }
         .tanks-panel::-webkit-scrollbar { width: 6px; }
@@ -41,9 +43,14 @@
         .tank-card.selected { border-color: #ffd966; background: linear-gradient(135deg, #3a4a2a, #2a3a1a); box-shadow: 0 0 15px rgba(255,217,102,0.5); }
         .tank-card.leviathan-tank { background: linear-gradient(135deg, #2a1a3a, #1a0a2a); border-color: #7e57c2; }
         .tank-card.leviathan-tank.selected { border-color: #ce93d8; box-shadow: 0 0 20px rgba(156,39,176,0.7); }
+        .tank-card.space-tank { background: linear-gradient(135deg, #1a2a4a, #0a1a3a); border-color: #42a5f5; }
+        .tank-card.space-tank.selected { border-color: #64b5f6; box-shadow: 0 0 25px rgba(66,165,245,0.9), inset 0 0 20px rgba(100,181,246,0.3); }
+        .tank-card.space-tank::before { background: linear-gradient(180deg, #42a5f5, #7e57c2); }
         .tank-card .tank-name { font-weight: bold; color: #ffd966; font-size: 12px; margin-bottom: 2px; }
         .tank-card.leviathan-tank .tank-name { color: #ce93d8; }
+        .tank-card.space-tank .tank-name { color: #64b5f6; text-shadow: 0 0 8px rgba(100,181,246,0.8); }
         .tank-card .tank-level { color: #ffa726; font-size: 10px; margin-bottom: 4px; }
+        .tank-card.space-tank .tank-level { color: #ffd966; }
         .tank-card .tank-stats { font-size: 10px; color: #bbb; line-height: 1.4; }
         .tank-card .tank-stats .stat-row { display: flex; justify-content: space-between; }
         .tank-icon { width: 100%; height: 40px; margin-bottom: 3px; display: flex; align-items: center; justify-content: center; }
@@ -57,6 +64,8 @@
         .tank-desc { font-size: 10px; color: #888; font-style: italic; margin-top: 8px; padding: 6px; background: rgba(0,0,0,0.3); border-radius: 6px; }
         .legend-badge { display: inline-block; padding: 2px 6px; border-radius: 4px; font-size: 9px; font-weight: bold; margin-left: 4px; }
         .legend-badge.event { background: #7e57c2; color: #fff; }
+        .legend-badge.space { background: #1565c0; color: #fff; box-shadow: 0 0 10px rgba(100,181,246,0.8); }
+        .space-mode-hint { background: linear-gradient(135deg, #1a2a5a, #0a1a3a); border: 2px solid #64b5f6; border-radius: 10px; padding: 10px 14px; color: #64b5f6; font-size: 11px; text-align: center; margin-top: 8px; text-shadow: 0 0 8px rgba(100,181,246,0.8); box-shadow: 0 0 20px rgba(100,181,246,0.3); line-height: 1.5; }
         /* Модалки */
         .modal-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); display: none; justify-content: center; align-items: center; z-index: 100; padding: 15px; backdrop-filter: blur(4px); }
         .modal-overlay.active { display: flex; }
@@ -76,10 +85,13 @@
         .mode-card.dark-front.selected { border-color: #76ff03; box-shadow: 0 0 20px rgba(118,255,3,0.6); }
         .mode-card.leviathan-mode { border-color: #7e57c2; background: linear-gradient(135deg, #3a1a0a, #1a0a00); }
         .mode-card.leviathan-mode.selected { border-color: #ff9800; box-shadow: 0 0 25px rgba(255,152,0,0.8); }
+        .mode-card.space-mode { border-color: #42a5f5; background: linear-gradient(135deg, #0a1a3a, #0a0a2a); }
+        .mode-card.space-mode.selected { border-color: #64b5f6; box-shadow: 0 0 30px rgba(100,181,246,1); }
         .mode-card .mode-icon, .map-card .map-icon { font-size: 32px; margin-bottom: 6px; display: block; text-align: center; }
         .mode-card .mode-name, .map-card .map-name { font-weight: bold; color: #ffd966; font-size: 14px; text-align: center; margin-bottom: 4px; }
         .mode-card.dark-front .mode-name { color: #76ff03; }
         .mode-card.leviathan-mode .mode-name { color: #ff9800; }
+        .mode-card.space-mode .mode-name { color: #64b5f6; text-shadow: 0 0 10px rgba(100,181,246,0.8); }
         .mode-card .mode-desc, .map-card .map-desc { font-size: 11px; color: #aaa; text-align: center; line-height: 1.4; }
         .mode-card .mode-info, .map-card .map-info { font-size: 10px; color: #888; text-align: center; margin-top: 6px; padding-top: 6px; border-top: 1px dashed #4a5a4a; }
         .map-preview { width: 100%; height: 60px; border-radius: 6px; margin-bottom: 8px; position: relative; overflow: hidden; }
@@ -110,7 +122,7 @@
         @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
         .minimap-container { position: absolute; top: 60px; right: 8px; width: 105px; height: 105px; background: rgba(0,0,0,0.7); border: 2px solid #ffd966; border-radius: 8px; overflow: hidden; z-index: 10; pointer-events: none; }
         .minimap-container canvas { width: 100%; height: 100%; display: block; }
-        /* Тёмный фронт HUD */
+        /* HUDы */
         .dark-front-hud { position: absolute; top: 60px; left: 8px; display: none; flex-direction: column; gap: 6px; z-index: 12; pointer-events: none; }
         .dark-front-hud.active { display: flex; }
         .df-panel { background: linear-gradient(135deg, rgba(10,30,10,0.9), rgba(0,15,0,0.95)); border: 2px solid #76ff03; border-radius: 10px; padding: 8px 12px; color: #76ff03; font-size: 12px; font-weight: bold; text-shadow: 0 0 8px rgba(118,255,3,0.8); box-shadow: 0 0 15px rgba(118,255,3,0.3); min-width: 160px; }
@@ -119,10 +131,11 @@
         .df-panel .df-value.base { color: #00e5ff; text-shadow: 0 0 10px #00e5ff; }
         .df-panel.zombies { border-color: #f44336; color: #f44336; box-shadow: 0 0 15px rgba(244,67,54,0.3); }
         .df-panel.zombies .df-value { color: #f44336; text-shadow: 0 0 10px #f44336; }
+        .df-panel.allies { border-color: #64b5f6; color: #64b5f6; box-shadow: 0 0 15px rgba(100,181,246,0.3); }
+        .df-panel.allies .df-value { color: #64b5f6; text-shadow: 0 0 10px #64b5f6; }
         .df-timer { background: linear-gradient(135deg, rgba(40,10,0,0.95), rgba(20,5,0,0.95)); border: 2px solid #ff9800; border-radius: 10px; padding: 6px 14px; color: #ff9800; font-size: 18px; font-weight: bold; text-shadow: 0 0 10px #ff9800; box-shadow: 0 0 15px rgba(255,152,0,0.4); text-align: center; min-width: 100px; }
         .df-timer.warning { border-color: #f44336; color: #f44336; text-shadow: 0 0 10px #f44336; box-shadow: 0 0 20px rgba(244,67,54,0.6); animation: timerPulse 1s infinite; }
         @keyframes timerPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
-        /* Левиафан HUD */
         .leviathan-hud { position: absolute; top: 60px; left: 8px; display: none; flex-direction: column; gap: 6px; z-index: 12; pointer-events: none; }
         .leviathan-hud.active { display: flex; }
         .lv-panel { background: linear-gradient(135deg, rgba(40,20,10,0.95), rgba(20,10,5,0.95)); border: 2px solid #ff9800; border-radius: 10px; padding: 8px 12px; color: #ff9800; font-size: 12px; font-weight: bold; text-shadow: 0 0 8px rgba(255,152,0,0.8); box-shadow: 0 0 15px rgba(255,152,0,0.4); min-width: 170px; }
@@ -141,24 +154,85 @@
         .lv-hp-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #fff; font-size: 12px; font-weight: bold; text-shadow: 1px 1px 2px #000; z-index: 2; }
         .lv-timer { position: absolute; top: 60px; right: 8px; background: linear-gradient(135deg, rgba(40,20,10,0.95), rgba(20,10,5,0.95)); border: 2px solid #ff9800; border-radius: 10px; padding: 6px 14px; color: #ff9800; font-size: 18px; font-weight: bold; text-shadow: 0 0 10px #ff9800; box-shadow: 0 0 15px rgba(255,152,0,0.5); text-align: center; min-width: 100px; z-index: 12; }
         .lv-timer.warning { border-color: #d32f2f; color: #ef5350; text-shadow: 0 0 10px #ef5350; box-shadow: 0 0 20px rgba(211,47,47,0.6); animation: timerPulse 1s infinite; }
-        /* Индикатор переноски материи */
+        .space-hud { position: absolute; top: 60px; left: 8px; display: none; flex-direction: column; gap: 6px; z-index: 12; pointer-events: none; }
+        .space-hud.active { display: flex; }
+        .sp-panel { background: linear-gradient(135deg, rgba(60,60,70,0.95), rgba(30,30,40,0.95)); border: 2px solid #64b5f6; border-radius: 10px; padding: 8px 12px; color: #64b5f6; font-size: 12px; font-weight: bold; text-shadow: 0 0 8px rgba(100,181,246,0.8); box-shadow: 0 0 20px rgba(100,181,246,0.4); min-width: 160px; }
+        .sp-panel .sp-label { font-size: 10px; color: #aaa; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 3px; }
+        .sp-panel .sp-value { font-size: 20px; color: #64b5f6; text-shadow: 0 0 10px #64b5f6; }
+        .sp-panel .sp-value.blue { color: #42a5f5; text-shadow: 0 0 10px #42a5f5; }
+        .sp-panel .sp-value.red { color: #ef5350; text-shadow: 0 0 10px #ef5350; }
+        .sp-panel.enemies { border-color: #ef5350; color: #ef5350; box-shadow: 0 0 20px rgba(239,83,80,0.4); }
+        .sp-panel.enemies .sp-value { color: #ef5350; text-shadow: 0 0 10px #ef5350; }
+        .sp-timer { position: absolute; top: 60px; right: 8px; background: linear-gradient(135deg, rgba(60,60,70,0.95), rgba(30,30,40,0.95)); border: 2px solid #64b5f6; border-radius: 10px; padding: 6px 14px; color: #64b5f6; font-size: 18px; font-weight: bold; text-shadow: 0 0 10px #64b5f6; box-shadow: 0 0 20px rgba(100,181,246,0.5); text-align: center; min-width: 100px; z-index: 12; }
+        .sp-timer.warning { border-color: #ef5350; color: #ef5350; text-shadow: 0 0 10px #ef5350; box-shadow: 0 0 25px rgba(239,83,80,0.7); animation: timerPulse 1s infinite; }
+        .team-score-panel { position: absolute; top: 8px; left: 50%; transform: translateX(-50%); display: none; gap: 15px; background: rgba(30,30,40,0.9); border: 2px solid #64b5f6; border-radius: 12px; padding: 8px 20px; font-size: 16px; font-weight: bold; z-index: 15; box-shadow: 0 0 25px rgba(100,181,246,0.6); }
+        .team-score-panel.active { display: flex; }
+        .team-score-panel .ts-blue { color: #42a5f5; text-shadow: 0 0 10px #42a5f5; }
+        .team-score-panel .ts-red { color: #ef5350; text-shadow: 0 0 10px #ef5350; }
+        .team-score-panel .ts-vs { color: #ffd966; }
+        .event-notification { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.5); background: linear-gradient(135deg, rgba(60,60,70,0.95), rgba(100,60,150,0.95)); border: 3px solid #ce93d8; border-radius: 20px; padding: 20px 40px; color: #fff; font-size: 22px; font-weight: bold; text-align: center; z-index: 25; pointer-events: none; opacity: 0; transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); box-shadow: 0 0 50px rgba(206,147,216,0.9), inset 0 0 30px rgba(100,181,246,0.3); text-shadow: 0 0 15px #ce93d8, 0 0 30px #ce93d8; letter-spacing: 2px; text-transform: uppercase; max-width: 80%; }
+        .event-notification.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        .event-notification .ev-icon { font-size: 40px; display: block; margin-bottom: 8px; }
+        .event-notification .ev-title { color: #ffd966; font-size: 14px; letter-spacing: 3px; margin-bottom: 5px; }
+        .event-notification .ev-desc { font-size: 18px; color: #fff; }
+        .lava-warning { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, rgba(200,60,20,0.95), rgba(120,30,10,0.95)); border: 2px solid #ff5722; border-radius: 10px; padding: 6px 18px; color: #ffab91; font-size: 12px; font-weight: bold; z-index: 12; display: none; box-shadow: 0 0 25px rgba(255,87,34,0.7); text-shadow: 0 0 10px #ff5722; animation: lavaPulse 1.5s infinite; }
+        .lava-warning.active { display: block; }
+        @keyframes lavaPulse { 0%, 100% { box-shadow: 0 0 25px rgba(255,87,34,0.7); } 50% { box-shadow: 0 0 40px rgba(255,87,34,1); } }
+        .speed-indicator { position: absolute; top: 50%; right: 20px; transform: translateY(-50%); background: linear-gradient(135deg, rgba(100,181,246,0.9), rgba(50,100,200,0.9)); border: 2px solid #90caf9; border-radius: 12px; padding: 8px 12px; color: #fff; font-size: 11px; font-weight: bold; z-index: 12; display: none; text-shadow: 0 0 10px #64b5f6; box-shadow: 0 0 25px rgba(100,181,246,0.7); text-align: center; flex-direction: column; gap: 4px; }
+        .speed-indicator.active { display: flex; animation: speedPulse 0.5s infinite; }
+        @keyframes speedPulse { 0%, 100% { transform: translateY(-50%) scale(1); } 50% { transform: translateY(-50%) scale(1.05); } }
+        .speed-indicator .speed-icon { font-size: 22px; }
+        .speed-indicator .speed-bar { width: 100px; height: 6px; background: rgba(0,0,0,0.5); border-radius: 3px; overflow: hidden; }
+        .speed-indicator .speed-bar-fill { height: 100%; background: linear-gradient(90deg, #64b5f6, #ffffff); transition: width 0.1s; }
+        /* Индикатор возрождения союзников */
+        .respawn-indicator {
+            position: absolute;
+            top: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, rgba(10,30,10,0.95), rgba(0,20,0,0.95));
+            border: 2px solid #76ff03;
+            border-radius: 10px;
+            padding: 6px 14px;
+            color: #76ff03;
+            font-size: 11px;
+            font-weight: bold;
+            z-index: 13;
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            align-items: center;
+            box-shadow: 0 0 20px rgba(118,255,3,0.5);
+            text-shadow: 0 0 8px #76ff03;
+        }
+        .respawn-indicator.active { display: flex; }
+        .respawn-indicator .ri-label { font-size: 9px; color: #aaa; letter-spacing: 1px; }
+        .respawn-indicator .ri-timer { font-size: 16px; color: #76ff03; }
+        .respawn-indicator .ri-bar {
+            width: 120px;
+            height: 4px;
+            background: rgba(0,0,0,0.5);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        .respawn-indicator .ri-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #76ff03, #ccff90);
+            transition: width 0.1s;
+        }
         .matter-indicator { position: absolute; bottom: 140px; left: 20px; background: linear-gradient(135deg, rgba(10,30,10,0.95), rgba(0,15,0,0.95)); border: 2px solid #76ff03; border-radius: 12px; padding: 8px 14px; color: #76ff03; font-size: 14px; font-weight: bold; text-shadow: 0 0 8px #76ff03; z-index: 12; display: none; flex-direction: column; align-items: center; gap: 2px; box-shadow: 0 0 20px rgba(118,255,3,0.5); min-width: 80px; }
         .matter-indicator.active { display: flex; }
         .matter-indicator .matter-icon { font-size: 22px; animation: glowPulse 1.5s infinite; }
         .matter-indicator .matter-value { font-size: 20px; color: #76ff03; }
         @keyframes glowPulse { 0%, 100% { text-shadow: 0 0 8px #76ff03; } 50% { text-shadow: 0 0 20px #76ff03, 0 0 30px #76ff03; } }
-        /* Индикатор энергии (Левиафан) */
         .energy-indicator { position: absolute; bottom: 140px; left: 20px; background: linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.05)); border: 2px solid #ffffff; border-radius: 12px; padding: 8px 14px; color: #ffffff; font-size: 14px; font-weight: bold; text-shadow: 0 0 8px #ffffff; z-index: 12; display: none; flex-direction: column; align-items: center; gap: 2px; box-shadow: 0 0 20px rgba(255,255,255,0.5); min-width: 80px; }
         .energy-indicator.active { display: flex; }
         .energy-indicator .energy-icon { font-size: 22px; animation: glowPulse 1.5s infinite; }
         .energy-indicator .energy-value { font-size: 20px; color: #ffffff; }
-        /* Универсальная кнопка действия (сдача материи / ремнабор) */
         .action-btn { position: absolute; bottom: 130px; left: 50%; transform: translateX(-50%); padding: 12px 28px; border-radius: 30px; font-size: 14px; font-weight: bold; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: all 0.15s; z-index: 15; display: none; }
         .action-btn.active { display: block; animation: actionPulse 1.5s infinite; }
         .action-btn:active { transform: translateX(-50%) translateY(3px); }
-        /* Зелёная (материя) */
         .action-btn.matter { background: linear-gradient(180deg, #76ff03, #4caf50); color: #0a1a0a; border: 3px solid #aaffaa; box-shadow: 0 0 25px rgba(118,255,3,0.8), 0 4px 0 #2a5a0a; }
-        /* Белая (энергия) */
         .action-btn.energy { background: linear-gradient(180deg, #ffffff, #cccccc); color: #1a1a1a; border: 3px solid #ffffff; box-shadow: 0 0 25px rgba(255,255,255,0.8), 0 4px 0 #666; }
         @keyframes actionPulse { 0%, 100% { box-shadow: 0 0 25px rgba(118,255,3,0.8), 0 4px 0 #2a5a0a; } 50% { box-shadow: 0 0 40px rgba(118,255,3,1), 0 4px 0 #2a5a0a; } }
         .action-btn.energy.active { animation: energyPulse 1.5s infinite; }
@@ -176,10 +250,13 @@
         .victory-screen.leviathan-win h1 { color: #ff9800; text-shadow: 0 0 25px #ff6600, 4px 4px 8px #000; }
         .victory-screen.leviathan-lose { background: radial-gradient(ellipse at center, rgba(100,0,0,0.95), rgba(30,0,0,0.98)); }
         .victory-screen.leviathan-lose h1 { color: #f44336; text-shadow: 0 0 25px #d32f2f, 4px 4px 8px #000; }
+        .victory-screen.space-win { background: radial-gradient(ellipse at center, rgba(60,60,70,0.95), rgba(30,30,40,0.98)); }
+        .victory-screen.space-win h1 { color: #64b5f6; text-shadow: 0 0 30px #42a5f5, 0 0 60px #ce93d8, 4px 4px 8px #000; }
+        .victory-screen.space-lose { background: radial-gradient(ellipse at center, rgba(90,20,40,0.95), rgba(30,5,15,0.98)); }
+        .victory-screen.space-lose h1 { color: #ef5350; text-shadow: 0 0 30px #d32f2f, 4px 4px 8px #000; }
         .death-stats { font-size: 16px; color: #ffd966; text-align: center; line-height: 1.8; }
         .btn { background: linear-gradient(180deg, #8b7a4a, #5a4a2a); border: 2px solid #ffd966; color: #fff; padding: 12px 28px; border-radius: 30px; font-size: 15px; font-weight: bold; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 4px 0 #3a2a0a; transition: all 0.1s; }
         .btn:active { transform: translateY(3px); box-shadow: 0 1px 0 #3a2a0a; }
-        /* Джойстик и кнопки */
         .joystick-zone { position: absolute; bottom: 20px; left: 20px; width: 125px; height: 125px; border-radius: 50%; background: rgba(255,255,255,0.08); border: 2px solid rgba(255,217,102,0.4); z-index: 15; touch-action: none; }
         .joystick-knob { position: absolute; top: 50%; left: 50%; width: 52px; height: 52px; margin: -26px 0 0 -26px; border-radius: 50%; background: radial-gradient(circle, #ffd966, #8b7a4a); box-shadow: 0 2px 10px rgba(0,0,0,0.5); transition: transform 0.05s; pointer-events: none; }
         .fire-btn { position: absolute; bottom: 30px; right: 20px; width: 95px; height: 95px; border-radius: 50%; background: radial-gradient(circle, #e94a2a, #8b1a0a); border: 3px solid #ffd966; color: #fff; font-size: 12px; font-weight: bold; display: flex; align-items: center; justify-content: center; z-index: 15; box-shadow: 0 4px 15px rgba(233,74,42,0.6); cursor: pointer; touch-action: none; text-transform: uppercase; letter-spacing: 1px; text-align: center; line-height: 1.2; }
@@ -203,12 +280,17 @@
             .modes-grid, .maps-grid { grid-template-columns: 1fr; }
             .auto-aim-btn { width: 60px; height: 60px; bottom: 130px; }
             .leviathan-hp-bar { width: 90%; }
-            .lv-panel, .df-panel { padding: 6px 10px; min-width: 130px; }
-            .lv-panel .lv-value, .df-panel .df-value { font-size: 16px; }
-            .lv-timer, .df-timer { font-size: 14px; padding: 5px 10px; min-width: 80px; }
+            .lv-panel, .df-panel, .sp-panel { padding: 6px 10px; min-width: 130px; }
+            .lv-panel .lv-value, .df-panel .df-value, .sp-panel .sp-value { font-size: 16px; }
+            .lv-timer, .df-timer, .sp-timer { font-size: 14px; padding: 5px 10px; min-width: 80px; }
             .action-btn { padding: 10px 20px; font-size: 13px; bottom: 110px; }
             .matter-indicator, .energy-indicator { bottom: 180px; left: 10px; padding: 6px 10px; min-width: 70px; }
             .matter-indicator .matter-value, .energy-indicator .energy-value { font-size: 16px; }
+            .event-notification { font-size: 16px; padding: 15px 25px; }
+            .event-notification .ev-icon { font-size: 30px; }
+            .event-notification .ev-desc { font-size: 14px; }
+            .respawn-indicator { padding: 5px 10px; }
+            .respawn-indicator .ri-bar { width: 100px; }
         }
         @media (max-height: 500px) {
             .kill-feed { max-height: 55px; overflow: hidden; }
@@ -253,6 +335,19 @@
         
         <div class="battle-info" id="battle-info">Режим: Случайный бой</div>
         
+        <!-- Индикатор возрождения союзников (Тёмный фронт) -->
+        <div class="respawn-indicator" id="respawn-indicator">
+            <div class="ri-label">🔄 ВОЗРОЖДЕНИЕ СОЮЗНИКА</div>
+            <div class="ri-timer" id="ri-timer">5.0с</div>
+            <div class="ri-bar"><div class="ri-bar-fill" id="ri-bar-fill" style="width: 0%"></div></div>
+        </div>
+        
+        <div class="team-score-panel" id="team-score-panel">
+            <span class="ts-blue">🔵 <span id="ts-blue">7</span></span>
+            <span class="ts-vs">VS</span>
+            <span class="ts-red">🔴 <span id="ts-red">7</span></span>
+        </div>
+        
         <div class="leviathan-hp-bar" id="leviathan-hp-bar">
             <div class="lv-hp-label">👹 ЛЕВИАФАН</div>
             <div class="lv-hp-container">
@@ -265,6 +360,7 @@
             <div class="df-panel"><div class="df-label">🟢 Собрано</div><div class="df-value" id="df-total">0</div></div>
             <div class="df-panel"><div class="df-label">📦 Доставлено</div><div class="df-value base" id="df-delivered">0</div></div>
             <div class="df-panel zombies"><div class="df-label">🧟 Зомби</div><div class="df-value" id="df-zombies">15</div></div>
+            <div class="df-panel allies"><div class="df-label">🛡️ Союзников</div><div class="df-value" id="df-allies">4</div></div>
         </div>
         
         <div class="leviathan-hud" id="leviathan-hud">
@@ -274,8 +370,38 @@
             <div class="lv-panel"><div class="lv-label">📍 До Врат</div><div class="lv-value" id="lv-progress">0%</div></div>
         </div>
         
+        <div class="space-hud" id="space-hud">
+            <div class="sp-panel">
+                <div class="sp-label">🛸 Шаротанк</div>
+                <div class="sp-value blue" id="sp-name">ИС-360</div>
+            </div>
+            <div class="sp-panel enemies">
+                <div class="sp-label">💀 Врагов</div>
+                <div class="sp-value red" id="sp-enemies">7</div>
+            </div>
+            <div class="sp-panel">
+                <div class="sp-label">🛡️ Союзников</div>
+                <div class="sp-value blue" id="sp-allies">7</div>
+            </div>
+        </div>
+        
+        <div class="speed-indicator" id="speed-indicator">
+            <div class="speed-icon">💫</div>
+            <div>ОТТАЛКИВАНИЕ</div>
+            <div class="speed-bar"><div class="speed-bar-fill" id="speed-bar-fill" style="width: 0%"></div></div>
+        </div>
+        
         <div class="df-timer" id="df-timer" style="position:absolute;top:60px;right:8px;display:none;">07:00</div>
         <div class="lv-timer" id="lv-timer" style="display:none;">05:00</div>
+        <div class="sp-timer" id="sp-timer" style="display:none;">03:30</div>
+        
+        <div class="event-notification" id="event-notification">
+            <span class="ev-icon" id="ev-icon">✨</span>
+            <div class="ev-title" id="ev-title">СОБЫТИЕ</div>
+            <div class="ev-desc" id="ev-desc">Описание</div>
+        </div>
+        
+        <div class="lava-warning" id="lava-warning">⚠️ ОСТОРОЖНО! ЛАВА!</div>
         
         <div class="matter-indicator" id="matter-indicator">
             <div class="matter-icon">🧪</div>
@@ -287,7 +413,7 @@
             <div class="energy-value" id="energy-value">0</div>
         </div>
         
-        <div class="base-hint" id="base-hint">📦 Вернитесь на базу для сдачи материи!</div>
+        <div class="base-hint" id="base-hint"></div>
         
         <div class="minimap-container"><canvas id="minimap-canvas" width="220" height="220"></canvas></div>
         
@@ -296,7 +422,6 @@
         <div class="auto-aim-btn" id="auto-aim-btn"><span class="aa-icon">🎯</span><span>АВТО</span></div>
         <div class="auto-aim-indicator" id="auto-aim-indicator">🎯 АВТОПРИЦЕЛ</div>
         
-        <!-- Универсальная кнопка действия -->
         <button class="action-btn matter" id="action-btn">📦 СДАТЬ МАТЕРИЮ</button>
         
         <button class="back-btn-mob" id="back-btn">← В ангар</button>
@@ -359,8 +484,14 @@
         enemyBaseSpeed: 1.4, allyBaseSpeed: 1.6,
         autoAimRange: 700, autoAimTurnSpeed: 0.25,
         dfDuration: 7 * 60, dfZombieCount: 15, dfMatterPerKill: 2, dfMaxCarry: 10,
+        // === НОВОЕ: параметры возрождения союзников в Тёмном фронте ===
+        dfAllyRespawnTime: 8,          // секунд до возрождения союзника
+        dfMaxAllies: 4,                // максимум союзников одновременно
         leviathanDuration: 5 * 60, leviathanHp: 3000, leviathanMinions: 14,
         leviathanSpeed: 0.35, energyHeal: 100, maxEnergy: 8,
+        spaceDuration: 210, spaceTeamSize: 7, spaceEventInterval: 45,
+        lavaDamage: 8,
+        laserDamage: 6, laserKnockback: 180, collisionKnockback: 120, knockbackDecay: 0.85,
     };
     
     const NATIONS = {
@@ -380,8 +511,16 @@
         survival: { id: 'survival', name: 'Выживание', icon: '🔥', desc: 'Волны врагов.', enemies: 4, allies: 2, scoreLimit: 999, timeLimit: 0, respawn: false, respawnTime: 0, info: 'Волны' },
         assault: { id: 'assault', name: 'Штурм', icon: '🎯', desc: 'Захватите точку.', enemies: 6, allies: 5, scoreLimit: 100, timeLimit: 180, respawn: true, respawnTime: 3000, info: 'Захват' },
         lastStand: { id: 'lastStand', name: 'Последний рубеж', icon: '⚡', desc: 'Одна жизнь.', enemies: 10, allies: 3, scoreLimit: 10, timeLimit: 0, respawn: false, respawnTime: 0, info: 'Одна жизнь' },
-        darkFront: { id: 'darkFront', name: 'Тёмный фронт', icon: '🧟', desc: 'Собирайте зелёную материю!', enemies: 15, allies: 4, scoreLimit: 999, timeLimit: 420, respawn: true, respawnTime: 5000, info: '5 vs 15 • 7 минут', isDarkFront: true },
+        darkFront: { id: 'darkFront', name: 'Тёмный фронт', icon: '🧟', desc: 'Собирайте зелёную материю!', enemies: 15, allies: 4, scoreLimit: 999, timeLimit: 420, respawn: true, respawnTime: 5000, info: '5 vs 15 • 7 минут • Возрождение', isDarkFront: true },
         leviathan: { id: 'leviathan', name: 'Вторжение Левиафана', icon: '👹', desc: 'Хэллоуин 2017!', enemies: 14, allies: 2, scoreLimit: 999, timeLimit: 300, respawn: true, respawnTime: 5000, info: '3 vs Левиафан', isLeviathan: true },
+        spaceTank: {
+            id: 'spaceTank', name: 'Шаротанк', icon: '🛸',
+            desc: 'Эксклюзивный режим ИС-360. Карта «Луна»!',
+            enemies: 7, allies: 6, scoreLimit: 7, timeLimit: 210,
+            respawn: false, respawnTime: 0,
+            info: '7 vs 7 • 3:30 • ИС-360',
+            isSpaceTank: true,
+        },
     };
     
     const MAPS = {
@@ -394,6 +533,14 @@
         industrial: { id: 'industrial', name: 'Промзона', icon: '🏭', desc: 'Заводы', info: 'Промзона', bg: '#4a3a2a', grid: '#5a4a3a', border: '#8a7a5a', obstacleColor: '#6a5a4a', obstacleDensity: 22 },
         hills: { id: 'hills', name: 'Холмы', icon: '⛰️', desc: 'Пересечённая', info: 'Холмы', bg: '#3a4a2a', grid: '#4a5a3a', border: '#6a7a4a', obstacleColor: '#5a6a3a', obstacleDensity: 15 },
         orange: { id: 'orange', name: 'Оранжевая Пустошь', icon: '🟠', desc: 'Пустошь Левиафана', info: 'Врата в углу', bg: '#c97a3a', grid: '#b86a2a', border: '#8a4a10', obstacleColor: '#a05a20', obstacleDensity: 12 },
+        moon: {
+            id: 'moon', name: 'Луна', icon: '🌕',
+            desc: 'Лунная поверхность с кратерами и лавовыми лунками',
+            info: '6 лавовых лунок • Шаротанк',
+            bg: '#8a8a95', grid: '#7a7a85', border: '#5a5a65',
+            obstacleColor: '#6a6a75', obstacleDensity: 14,
+            isMoon: true, craterColor: '#6a6a75', craterShadow: '#5a5a65',
+        },
     };
     
     const TANKS = [
@@ -406,6 +553,12 @@
         { id: 'is7', nation: 'ussr', name: 'ИС-7', level: 7, hp: 500, speed: 1.5, damage: 90, reload: 55, caliber: 38, armor: 8, desc: 'Щука.' },
         { id: 't54', nation: 'ussr', name: 'Т-54', level: 6, hp: 360, speed: 2.2, damage: 62, reload: 40, caliber: 32, armor: 6, desc: 'Средний.' },
         { id: 't72', nation: 'ussr', name: 'Т-72', level: 8, hp: 480, speed: 2.4, damage: 95, reload: 48, caliber: 40, armor: 9, desc: 'ОБТ.' },
+        {
+            id: 'is360', nation: 'ussr', name: '🔵 ИС-360', level: 10,
+            hp: 250, speed: 4.2, damage: 6, reload: 22, caliber: 51, armor: 3,
+            desc: 'Шаротанк. Лазерные орудия с отталкиванием!',
+            isSpaceTank: true, isBall: true,
+        },
         { id: 'pz1', nation: 'germany', name: 'Pz.Kpfw. I', level: 1, hp: 75, speed: 2.7, damage: 15, reload: 22, caliber: 18, armor: 1, desc: 'Первый вермахта.' },
         { id: 'pz2', nation: 'germany', name: 'Pz.Kpfw. II', level: 2, hp: 105, speed: 2.5, damage: 21, reload: 26, caliber: 20, armor: 2, desc: 'Разведчик.' },
         { id: 'pz4', nation: 'germany', name: 'Pz.Kpfw. IV', level: 4, hp: 210, speed: 2.2, damage: 45, reload: 33, caliber: 28, armor: 4, desc: 'Рабочая лошадка.' },
@@ -440,6 +593,15 @@
         { id: 'stein', nation: 'leviathan', name: '🔶 Штейн', level: 10, hp: 550, speed: 2.3, damage: 38, reload: 15, caliber: 34, armor: 9, desc: 'Двухбашенный ближний бой. Кормовое орудие!', isEvent: true, isStein: true, dualGun: true, backGun: true },
     ];
     
+    const RANDOM_EVENTS = [
+        { id: 'meteorRain', icon: '☄️', title: 'МЕТЕОРИТНЫЙ ДОЖДЬ', desc: 'Метеориты падают с неба!', color: '#ff5722' },
+        { id: 'lowGravity', icon: '🌌', title: 'НИЗКАЯ ГРАВИТАЦИЯ', desc: 'Все танки стали быстрее!', color: '#64b5f6' },
+        { id: 'solarFlare', icon: '☀️', title: 'СОЛНЕЧНАЯ ВСПЫШКА', desc: 'Ваш танк временно усилен!', color: '#ffd966' },
+        { id: 'lavaEruption', icon: '🌋', title: 'ИЗВЕРЖЕНИЕ ЛАВЫ', desc: 'Лава расширяется!', color: '#ff9800' },
+        { id: 'alienSignal', icon: '📡', title: 'СИГНАЛ ПРИШЕЛЬЦЕВ', desc: 'Врагов отбросило от вас!', color: '#ce93d8' },
+        { id: 'cosmicStorm', icon: '⚡', title: 'КОСМИЧЕСКАЯ БУРЯ', desc: 'Все орудия перезаряжаются быстрее!', color: '#64b5f6' },
+    ];
+    
     const state = {
         screen: 'hangar',
         selectedNation: 'ussr',
@@ -449,6 +611,7 @@
         player: null,
         enemies: [], allies: [], bullets: [], particles: [], obstacles: [],
         matterOnGround: [], energyDrops: [],
+        lavaPools: [], craters: [],
         kills: 0, deaths: 0, scoreBlue: 0, scoreRed: 0,
         camera: { x: 0, y: 0 },
         keys: {},
@@ -464,19 +627,24 @@
         battleEnded: false,
         autoAim: false, autoFire: false,
         autoAimTarget: null, autoAimManualOverride: false,
-        // Тёмный фронт
         df: {
-            matterOnGround: [], playerMatter: 0, teamMatter: 0,
-            delivered: 0, base: null, timeLeft: 0, zombiesKilled: 0,
+            matterOnGround: [], playerMatter: 0, teamMatter: 0, delivered: 0,
+            base: null, timeLeft: 0, zombiesKilled: 0,
+            // === НОВОЕ: очередь возрождения союзников ===
+            respawnQueue: [],              // [{timeLeft, isFirstSpawn}]
+            allyDeaths: 0,
+            alliesRespawned: 0,
         },
-        // Левиафан
-        lv: {
-            boss: null, gates: null, progress: 0,
-            energyCount: 0, timeLeft: 0, startPos: null, totalDist: 0,
+        lv: { boss: null, gates: null, progress: 0, energyCount: 0, timeLeft: 0, startPos: null, totalDist: 0 },
+        space: {
+            timeLeft: 0, blueAlive: 0, redAlive: 0,
+            eventTimer: 0, nextEventIndex: 0, eventQueue: [],
+            activeEvent: null, eventDuration: 0,
+            speedMultiplier: 1, reloadMultiplier: 1,
+            isLowGravity: false, isSolarBoost: false,
         },
     };
     
-    // DOM
     const $ = id => document.getElementById(id);
     const hangarScreen = $('hangar-screen'), battleScreen = $('battle-screen');
     const battleCanvas = $('battle-canvas'), battleCtx = battleCanvas.getContext('2d', { alpha: false });
@@ -499,16 +667,28 @@
     const modeClose = $('mode-close'), mapClose = $('map-close'), settingsClose = $('settings-close');
     const modesGrid = $('modes-grid'), mapsGrid = $('maps-grid'), settingsList = $('settings-list');
     const battleInfo = $('battle-info');
-    const darkFrontHud = $('dark-front-hud'), leviathanHud = $('leviathan-hud');
-    const dfTotal = $('df-total'), dfDelivered = $('df-delivered'), dfZombies = $('df-zombies');
+    const darkFrontHud = $('dark-front-hud'), leviathanHud = $('leviathan-hud'), spaceHud = $('space-hud');
+    const dfTotal = $('df-total'), dfDelivered = $('df-delivered'), dfZombies = $('df-zombies'), dfAllies = $('df-allies');
     const dfTimer = $('df-timer');
     const lvStatus = $('lv-status'), lvMinions = $('lv-minions'), lvEnergy = $('lv-energy'), lvProgress = $('lv-progress');
     const lvTimer = $('lv-timer');
     const leviathanHpBar = $('leviathan-hp-bar'), lvHpFill = $('lv-hp-fill'), lvHpText = $('lv-hp-text');
+    const spEnemies = $('sp-enemies'), spAllies = $('sp-allies');
+    const spTimer = $('sp-timer');
+    const teamScorePanel = $('team-score-panel');
+    const tsBlue = $('ts-blue'), tsRed = $('ts-red');
+    const eventNotification = $('event-notification');
+    const evIcon = $('ev-icon'), evTitle = $('ev-title'), evDesc = $('ev-desc');
+    const lavaWarning = $('lava-warning');
+    const speedIndicator = $('speed-indicator'), speedBarFill = $('speed-bar-fill');
     const matterIndicator = $('matter-indicator'), matterValue = $('matter-value');
     const energyIndicator = $('energy-indicator'), energyValue = $('energy-value');
     const baseHint = $('base-hint');
     const actionBtn = $('action-btn');
+    // === НОВОЕ: индикатор возрождения ===
+    const respawnIndicator = $('respawn-indicator');
+    const riTimer = $('ri-timer');
+    const riBarFill = $('ri-bar-fill');
     
     // ==================== РИСОВАНИЕ ====================
     function roundRect(ctx, x, y, w, h, r) {
@@ -540,6 +720,9 @@
         const isLeviathan = tank.isLeviathan || false;
         const isRedFrankie = tank.isRedFrankie || false;
         const isRedStein = tank.isRedStein || false;
+        const isBall = tank.isBall || false;
+        const isBallAlly = tank.isBallAlly || false;
+        const isBallEnemy = tank.isBallEnemy || false;
         
         if (isZombie) bodyColor = '#3a5a3a';
         if (isDarkFrontAlly) bodyColor = '#8b1a1a';
@@ -548,16 +731,75 @@
         if (isRedFrankie) bodyColor = '#b71c1c';
         if (isRedStein) bodyColor = '#7f0000';
         if (isLeviathan) bodyColor = '#808080';
+        if (isBallAlly) bodyColor = '#1565c0';
+        if (isBallEnemy) bodyColor = '#c62828';
         
         if (isLeviathan) { drawLeviathan(ctx, tank, scale); ctx.restore(); return; }
         
-        // Тень
+        if (isBall || isBallAlly || isBallEnemy) {
+            ctx.fillStyle = 'rgba(0,0,0,0.5)';
+            ctx.beginPath();
+            ctx.ellipse(3, 5, 24, 22, 0, 0, Math.PI * 2);
+            ctx.fill();
+            const gradient = ctx.createRadialGradient(-6, -8, 2, 0, 0, 24);
+            if (isBallEnemy) {
+                gradient.addColorStop(0, '#ef9a9a');
+                gradient.addColorStop(0.4, '#ef5350');
+                gradient.addColorStop(0.8, '#c62828');
+                gradient.addColorStop(1, '#7f0000');
+            } else {
+                gradient.addColorStop(0, '#90caf9');
+                gradient.addColorStop(0.4, '#42a5f5');
+                gradient.addColorStop(0.8, '#1565c0');
+                gradient.addColorStop(1, '#0d47a1');
+            }
+            ctx.fillStyle = gradient;
+            ctx.strokeStyle = isBallEnemy ? '#4a0000' : '#0d47a1';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.arc(0, 0, 22, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+            ctx.fillStyle = 'rgba(255,255,255,0.5)';
+            ctx.beginPath();
+            ctx.ellipse(-8, -8, 8, 5, -0.5, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.strokeStyle = isBallEnemy ? 'rgba(255,150,150,0.4)' : 'rgba(100,181,246,0.5)';
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.arc(0, 0, 15, 0, Math.PI * 2);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.arc(0, 0, 8, 0, Math.PI * 2);
+            ctx.stroke();
+            ctx.fillStyle = '#1a1a2a';
+            ctx.strokeStyle = '#000';
+            ctx.lineWidth = 1;
+            ctx.fillRect(10, -8, 22, 5);
+            ctx.strokeRect(10, -8, 22, 5);
+            ctx.fillStyle = isBallEnemy ? '#ff5252' : '#64b5f6';
+            ctx.fillRect(30, -7, 4, 3);
+            ctx.fillStyle = '#1a1a2a';
+            ctx.fillRect(10, 3, 22, 5);
+            ctx.strokeRect(10, 3, 22, 5);
+            ctx.fillStyle = isBallEnemy ? '#ff5252' : '#64b5f6';
+            ctx.fillRect(30, 4, 4, 3);
+            ctx.save();
+            ctx.shadowBlur = 15;
+            ctx.shadowColor = isBallEnemy ? '#ff5252' : '#64b5f6';
+            ctx.fillStyle = isBallEnemy ? '#ff1744' : '#64b5f6';
+            ctx.beginPath();
+            ctx.arc(0, 0, 4, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.restore();
+            ctx.restore();
+            return;
+        }
+        
         ctx.fillStyle = 'rgba(0,0,0,0.5)';
         ctx.beginPath();
         ctx.ellipse(2, 3, 22, 16, 0, 0, Math.PI * 2);
         ctx.fill();
-        
-        // Гусеницы
         ctx.fillStyle = '#1a1a1a';
         ctx.strokeStyle = '#000';
         ctx.lineWidth = 1;
@@ -569,34 +811,27 @@
             ctx.fillRect(i, 12, 2, 5);
         }
         
-        // Двухбашенные танки
         if (isFrankie || isStein || isRedFrankie || isRedStein) {
             ctx.fillStyle = bodyColor;
             ctx.strokeStyle = isRedFrankie || isRedStein ? '#4a0000' : '#0d47a1';
             ctx.lineWidth = 2;
             roundRect(ctx, -22, -14, 44, 28, 5); ctx.fill(); ctx.stroke();
-            
             ctx.fillStyle = isRedFrankie || isRedStein ? 'rgba(255,100,100,0.3)' : 'rgba(100,181,246,0.3)';
             roundRect(ctx, -20, -12, 40, 12, 3); ctx.fill();
-            
             ctx.fillStyle = isRedFrankie || isRedStein ? '#d32f2f' : (isFrankie ? '#1976d2' : '#1565c0');
             ctx.strokeStyle = isRedFrankie || isRedStein ? '#4a0000' : '#0d47a1';
             roundRect(ctx, 2, -10, 16, 20, 4); ctx.fill(); ctx.stroke();
-            
             ctx.fillStyle = '#1a1a2a';
             ctx.strokeStyle = '#000';
             ctx.lineWidth = 1;
             ctx.fillRect(16, -3, 20, 6);
             ctx.strokeRect(16, -3, 20, 6);
-            
             ctx.fillStyle = bodyColor;
             ctx.beginPath();
             ctx.arc(17, 0, 5, 0, Math.PI * 2);
             ctx.fill(); ctx.stroke();
-            
             ctx.fillStyle = isRedFrankie || isRedStein ? '#d32f2f' : (isFrankie ? '#1976d2' : '#1565c0');
             roundRect(ctx, -18, -10, 16, 20, 4); ctx.fill(); ctx.stroke();
-            
             const hasBackGun = isStein || isRedStein;
             if (!hasBackGun) {
                 ctx.fillStyle = '#1a1a2a';
@@ -611,7 +846,6 @@
                 ctx.arc(-19, 0, 5, 0, Math.PI * 2);
                 ctx.fill(); ctx.stroke();
             }
-            
             ctx.save();
             ctx.shadowBlur = 12;
             ctx.shadowColor = isRedFrankie || isRedStein ? '#ff5252' : '#64b5f6';
@@ -624,7 +858,6 @@
             return;
         }
         
-        // Обычные танки
         ctx.fillStyle = bodyColor;
         ctx.strokeStyle = '#000';
         ctx.lineWidth = 1.5;
@@ -679,8 +912,6 @@
         ctx.beginPath();
         ctx.ellipse(0, 10, 60, 30, 0, 0, Math.PI * 2);
         ctx.fill();
-        
-        // Гусеницы
         ctx.fillStyle = '#1a1a1a';
         ctx.strokeStyle = '#000';
         ctx.lineWidth = 2;
@@ -691,23 +922,18 @@
             ctx.fillRect(i, -28, 3, 8);
             ctx.fillRect(i, 20, 3, 8);
         }
-        
-        // Корпус
         ctx.fillStyle = '#808080';
         ctx.strokeStyle = '#404040';
         ctx.lineWidth = 2.5;
         roundRect(ctx, -55, -20, 110, 40, 6); ctx.fill(); ctx.stroke();
         ctx.fillStyle = 'rgba(255,255,255,0.2)';
         roundRect(ctx, -50, -18, 100, 15, 4); ctx.fill();
-        
         ctx.strokeStyle = '#404040';
         ctx.lineWidth = 2;
         for (let i = -40; i < 45; i += 15) {
             ctx.beginPath();
             ctx.moveTo(i, -20); ctx.lineTo(i, 20); ctx.stroke();
         }
-        
-        // Боковые красные пушки (4 штуки)
         ctx.fillStyle = '#c62828';
         ctx.strokeStyle = '#7f0000';
         ctx.lineWidth = 2;
@@ -726,16 +952,12 @@
         roundRect(ctx, -15, 26, 20, 12, 3); ctx.fill(); ctx.stroke();
         ctx.fillStyle = '#8b0000';
         ctx.fillRect(-15, 30, 26, 5);
-        
-        // Башня
         ctx.fillStyle = '#707070';
         ctx.strokeStyle = '#404040';
         ctx.lineWidth = 2.5;
         roundRect(ctx, -20, -22, 45, 44, 6); ctx.fill(); ctx.stroke();
         ctx.fillStyle = 'rgba(255,255,255,0.25)';
         roundRect(ctx, -16, -18, 38, 14, 4); ctx.fill();
-        
-        // Одна красная пушка спереди
         ctx.fillStyle = '#c62828';
         ctx.strokeStyle = '#7f0000';
         ctx.lineWidth = 2;
@@ -745,8 +967,6 @@
         ctx.beginPath();
         ctx.arc(22, 0, 7, 0, Math.PI * 2);
         ctx.fill(); ctx.stroke();
-        
-        // Глаза
         ctx.save();
         ctx.shadowBlur = 25;
         ctx.shadowColor = '#ff1744';
@@ -754,11 +974,6 @@
         ctx.beginPath(); ctx.arc(-8, -8, 4, 0, Math.PI * 2); ctx.fill();
         ctx.beginPath(); ctx.arc(-8, 8, 4, 0, Math.PI * 2); ctx.fill();
         ctx.restore();
-        
-        ctx.fillStyle = 'rgba(200,200,200,0.5)';
-        ctx.beginPath(); ctx.arc(20, -25, 4, 0, Math.PI * 2); ctx.fill();
-        ctx.beginPath(); ctx.arc(-30, 28, 4, 0, Math.PI * 2); ctx.fill();
-        
         ctx.strokeStyle = 'rgba(255,82,82,0.5)';
         ctx.lineWidth = 3;
         ctx.setLineDash([8, 6]);
@@ -794,7 +1009,7 @@
         });
         const info = document.createElement('div');
         info.style.cssText = 'color:#888;font-size:11px;padding:10px;text-align:center;border-top:1px solid #4a5a4a;margin-top:10px;line-height:1.6;';
-        info.innerHTML = `💡 <b style="color:#ffd966;">Горячие клавиши:</b><br>• <b>T</b> автоприцел • <b>Y</b> автострельба<br>• <b>E</b> действие (сдать материю / энергия)<br>• <b>Q</b> кормовое орудие (Штейн)`;
+        info.innerHTML = `💡 <b style="color:#ffd966;">Горячие клавиши:</b><br>• <b>T</b> автоприцел • <b>Y</b> автострельба<br>• <b>E</b> действие (сдать материю / энергия)<br>• <b>Q</b> кормовое орудие (Штейн)<br><br>🔄 <b style="color:#76ff03;">Тёмный фронт:</b> союзники возрождаются через 8 секунд!`;
         settingsList.appendChild(info);
     }
     
@@ -855,15 +1070,18 @@
             if (state.selectedMode === mode.id) cls += ' selected';
             if (mode.isDarkFront) cls += ' dark-front';
             if (mode.isLeviathan) cls += ' leviathan-mode';
+            if (mode.isSpaceTank) cls += ' space-mode';
             card.className = cls;
             card.innerHTML = `<span class="mode-icon">${mode.icon}</span><div class="mode-name">${mode.name}</div><div class="mode-desc">${mode.desc}</div><div class="mode-info">${mode.info}</div>`;
             card.addEventListener('click', () => {
                 state.selectedMode = mode.id;
                 if (mode.isLeviathan) state.selectedMap = 'orange';
                 if (mode.isDarkFront) state.selectedMap = 'night';
+                if (mode.isSpaceTank) state.selectedMap = 'moon';
                 renderModesGrid();
                 updateModeBtn();
                 updateMapBtn();
+                updateBattleBtn();
                 closeModals();
             });
             modesGrid.appendChild(card);
@@ -875,7 +1093,8 @@
         Object.values(MAPS).forEach(map => {
             const card = document.createElement('div');
             card.className = 'map-card' + (state.selectedMap === map.id ? ' selected' : '');
-            card.innerHTML = `<div class="map-preview" style="background:${map.bg};"><div style="position:absolute;inset:0;background:linear-gradient(135deg,${map.grid} 0%,transparent 50%,${map.border} 100%);opacity:0.5;"></div><div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:24px;">${map.icon}</div></div><div class="map-name">${map.name}</div><div class="map-desc">${map.desc}</div><div class="map-info">${map.info}</div>`;
+            const previewBg = map.isMoon ? 'linear-gradient(135deg, #8a8a95, #6a6a75)' : map.bg;
+            card.innerHTML = `<div class="map-preview" style="background:${previewBg};"><div style="position:absolute;inset:0;background:linear-gradient(135deg,${map.grid} 0%,transparent 50%,${map.border} 100%);opacity:0.5;"></div><div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:24px;">${map.icon}</div></div><div class="map-name">${map.name}</div><div class="map-desc">${map.desc}</div><div class="map-info">${map.info}</div>`;
             card.addEventListener('click', () => {
                 state.selectedMap = map.id;
                 renderMapsGrid();
@@ -890,14 +1109,33 @@
         const mode = BATTLE_MODES[state.selectedMode];
         modeBtn.querySelector('span:last-child').textContent = mode.name;
         modeBtn.classList.add('set');
-        modeBtn.style.borderColor = mode.isDarkFront ? '#76ff03' : (mode.isLeviathan ? '#ff9800' : '');
-        modeBtn.style.color = mode.isDarkFront ? '#76ff03' : (mode.isLeviathan ? '#ff9800' : '');
+        modeBtn.style.borderColor = mode.isDarkFront ? '#76ff03' : (mode.isLeviathan ? '#ff9800' : (mode.isSpaceTank ? '#64b5f6' : ''));
+        modeBtn.style.color = mode.isDarkFront ? '#76ff03' : (mode.isLeviathan ? '#ff9800' : (mode.isSpaceTank ? '#64b5f6' : ''));
     }
     
     function updateMapBtn() {
         const map = MAPS[state.selectedMap];
         mapBtn.querySelector('span:last-child').textContent = map.name;
         mapBtn.classList.add('set');
+    }
+    
+    function updateBattleBtn() {
+        const tank = state.selectedTank;
+        if (tank && tank.isSpaceTank) {
+            battleBtn.classList.add('space-mode');
+            battleBtn.textContent = '🛸 В БОЙ (ШАРОТАНК)';
+            if (state.selectedMode !== 'spaceTank') {
+                state.selectedMode = 'spaceTank';
+                updateModeBtn();
+            }
+            if (state.selectedMap !== 'moon') {
+                state.selectedMap = 'moon';
+                updateMapBtn();
+            }
+        } else {
+            battleBtn.classList.remove('space-mode');
+            battleBtn.textContent = '⚔ В БОЙ';
+        }
     }
     
     function openModeModal() { closeModals(); modeModal.classList.add('active'); renderModesGrid(); }
@@ -938,6 +1176,7 @@
             let cls = 'tank-card';
             if (state.selectedTank?.id === tank.id) cls += ' selected';
             if (tank.isEvent) cls += ' leviathan-tank';
+            if (tank.isSpaceTank) cls += ' space-tank';
             card.className = cls;
             card.style.setProperty('--nation-color', NATIONS[tank.nation].color);
             
@@ -953,17 +1192,21 @@
             card.appendChild(iconCanvas);
             
             const info = document.createElement('div');
-            const badge = tank.isEvent ? '<span class="legend-badge event">EVENT</span>' : '';
+            let badge = '';
+            if (tank.isEvent) badge = '<span class="legend-badge event">EVENT</span>';
+            if (tank.isSpaceTank) badge = '<span class="legend-badge space">SPACE</span>';
             info.innerHTML = `<div class="tank-name">${tank.name}${badge}</div><div class="tank-level">Ур. ${tank.level}</div><div class="tank-stats"><div class="stat-row"><span>❤️</span><span>${tank.hp}</span></div><div class="stat-row"><span>💥</span><span>${tank.damage}</span></div></div>`;
             card.appendChild(info);
             card.addEventListener('click', () => {
                 state.selectedTank = tank;
                 renderTanksGrid();
                 updateStatsPanel();
+                updateBattleBtn();
             });
             tanksGrid.appendChild(card);
         });
         updateStatsPanel();
+        updateBattleBtn();
     }
     
     function updateStatsPanel() {
@@ -972,22 +1215,25 @@
         const nation = NATIONS[t.nation];
         let extraInfo = '';
         if (t.dualGun) extraInfo = t.backGun ? '<div class="stat-line"><span>🔫 Орудий</span><span>2 (перед + корма)</span></div>' : '<div class="stat-line"><span>🔫 Орудий</span><span>2 (дальний)</span></div>';
+        if (t.isSpaceTank) extraInfo = '<div class="stat-line"><span>🔫 Орудий</span><span>2 лазерных</span></div><div class="stat-line"><span>💫 Особенность</span><span style="color:#64b5f6;">Отталкивание</span></div>';
+        
         statsTitle.innerHTML = `${nation.flag} ${t.name} <span style="color:#ffa726;">(Ур. ${t.level})</span>`;
-        const maxHp = 700, maxDmg = 150, maxSpd = 3.5, maxArmor = 12;
+        const maxHp = 700, maxDmg = 150, maxSpd = 4.5, maxArmor = 12;
         statsContent.innerHTML = `
             <div class="stat-line"><span>❤️ Прочность</span><span>${t.hp}</span></div>
             <div class="stat-bar"><div class="stat-bar-fill" style="width:${(t.hp/maxHp)*100}%"></div></div>
             <div class="stat-line" style="margin-top:8px;"><span>💥 Урон</span><span>${t.damage}</span></div>
             <div class="stat-bar"><div class="stat-bar-fill" style="width:${(t.damage/maxDmg)*100}%;background:linear-gradient(90deg,#f44336,#ff9800);"></div></div>
-            <div class="stat-line" style="margin-top:8px;"><span>⚡ Скорость</span><span>${t.speed}</span></div>
+            <div class="stat-line" style="margin-top:8px;"><span>⚡ Скорость</span><span>${t.speed}${t.isSpaceTank ? ' (100 км/ч)' : ''}</span></div>
             <div class="stat-bar"><div class="stat-bar-fill" style="width:${(t.speed/maxSpd)*100}%;background:linear-gradient(90deg,#2196f3,#64b5f6);"></div></div>
-            <div class="stat-line" style="margin-top:8px;"><span>🛡️ Броня</span><span>${t.armor}</span></div>
+            <div class="stat-line" style="margin-top:8px;"><span>🛡️ Броня</span><span>${t.armor}${t.isSpaceTank ? ' (15 мм)' : ''}</span></div>
             <div class="stat-bar"><div class="stat-bar-fill" style="width:${(t.armor/maxArmor)*100}%;background:linear-gradient(90deg,#9c27b0,#ba68c8);"></div></div>
-            <div class="stat-line" style="margin-top:8px;"><span>🔄 Перезарядка</span><span>${(t.reload/60).toFixed(2)}с</span></div>
-            <div class="stat-line"><span>🎯 Калибр</span><span>${t.caliber} мм</span></div>
+            <div class="stat-line" style="margin-top:8px;"><span>🔄 Перезарядка</span><span>${(t.reload/60).toFixed(2)}с${t.isSpaceTank ? ' (20 в/мин)' : ''}</span></div>
+            <div class="stat-line"><span>🎯 Калибр</span><span>${t.caliber} мм${t.isSpaceTank ? ' (лазер)' : ''}</span></div>
             ${extraInfo}
             <div class="stat-line"><span>🌍 Нация</span><span>${nation.flag} ${nation.name}</span></div>
             <div class="tank-desc">"${t.desc}"</div>
+            ${t.isSpaceTank ? '<div class="space-mode-hint">🛸 <b>ЭКСКЛЮЗИВНЫЙ РЕЖИМ</b><br>Нажмите «В БОЙ» чтобы играть<br>на карте «Луна» с 6 лавовыми лунками!<br><br>💫 Лазеры <b>отталкивают</b> врагов!<br>🤝 Столкновения <b>расбрасывают</b> обоих!<br>🌋 Сталкивайте врагов в лаву!</div>' : ''}
         `;
     }
     
@@ -999,11 +1245,27 @@
         if (screen === 'hangar') {
             if (state.gameLoop) { cancelAnimationFrame(state.gameLoop); state.gameLoop = null; }
             deathScreen.classList.remove('active');
-            victoryScreen.classList.remove('active', 'dark-front-win', 'leviathan-win', 'leviathan-lose');
+            victoryScreen.classList.remove('active', 'dark-front-win', 'leviathan-win', 'leviathan-lose', 'space-win', 'space-lose');
         }
     }
     
-    // ==================== ПРЕПЯТСТВИЯ ====================
+    // ==================== ГЕНЕРАЦИЯ ====================
+    function generateCraters() {
+        const craters = [];
+        for (let i = 0; i < 25; i++) {
+            const x = 100 + Math.random() * (CONFIG.worldWidth - 200);
+            const y = 100 + Math.random() * (CONFIG.worldHeight - 200);
+            const radius = 30 + Math.random() * 70;
+            let overlaps = false;
+            for (const lp of state.lavaPools) {
+                if (Math.hypot(x - lp.x, y - lp.y) < lp.radius + radius + 30) { overlaps = true; break; }
+            }
+            if (overlaps) continue;
+            craters.push({ x, y, radius, depth: Math.random() });
+        }
+        return craters;
+    }
+    
     function generateObstacles(map) {
         const obstacles = [];
         const density = map.obstacleDensity;
@@ -1011,29 +1273,49 @@
             let x, y, w, h, ok;
             let attempts = 0;
             do {
-                w = 60 + Math.random() * 120;
-                h = 60 + Math.random() * 120;
+                w = map.isMoon ? (40 + Math.random() * 90) : (60 + Math.random() * 120);
+                h = map.isMoon ? (40 + Math.random() * 90) : (60 + Math.random() * 120);
                 x = 100 + Math.random() * (CONFIG.worldWidth - 200 - w);
                 y = 100 + Math.random() * (CONFIG.worldHeight - 200 - h);
                 ok = true;
                 const cx = CONFIG.worldWidth / 2;
                 const cy = CONFIG.worldHeight / 2;
-                if (state.selectedMode === 'leviathan') {
-                    const t = (x - 200) / 2000;
-                    const lineX = 200 + t * 2000;
-                    const lineY = 2200 - t * 2000;
-                    if (Math.abs(x + w/2 - lineX) < 250 && Math.abs(y + h/2 - lineY) < 250) ok = false;
-                }
-                if (Math.hypot(x + w/2 - cx, y + h/2 - cy) < 200) ok = false;
+                if (map.isMoon) {
+                    for (const lava of state.lavaPools) {
+                        if (Math.hypot(x + w/2 - lava.x, y + h/2 - lava.y) < lava.radius + 80) {
+                            ok = false; break;
+                        }
+                    }
+                    if (Math.hypot(x + w/2 - cx, y + h/2 - cy) < 300) ok = false;
+                } else if (Math.hypot(x + w/2 - cx, y + h/2 - cy) < 200) ok = false;
+                if (!ok) { attempts++; continue; }
                 for (const o of obstacles) {
                     if (x < o.x + o.w + 40 && x + w + 40 > o.x && y < o.y + o.h + 40 && y + h + 40 > o.y) { ok = false; break; }
                 }
                 attempts++;
-                if (attempts > 50) ok = true;
+                if (attempts > 50) { ok = true; }
             } while (!ok);
-            obstacles.push({ x, y, w, h, color: map.obstacleColor });
+            if (ok) obstacles.push({ x, y, w, h, color: map.obstacleColor });
         }
         return obstacles;
+    }
+    
+    function generateLavaPools() {
+        const pools = [];
+        const positions = [
+            { x: 400, y: 200 }, { x: 2000, y: 200 },
+            { x: 200, y: 800 }, { x: 200, y: 1600 },
+            { x: 2200, y: 800 }, { x: 2200, y: 1600 },
+        ];
+        positions.forEach(p => {
+            pools.push({
+                x: p.x, y: p.y,
+                radius: 130 + Math.random() * 40,
+                pulse: Math.random() * Math.PI * 2,
+                expanded: false,
+            });
+        });
+        return pools;
     }
     
     // ==================== ИНИЦИАЛИЗАЦИЯ РЕЖИМОВ ====================
@@ -1043,6 +1325,9 @@
             matterOnGround: [], playerMatter: 0, teamMatter: 0,
             delivered: 0, base: { x: CONFIG.worldWidth / 2, y: CONFIG.worldHeight / 2, radius: 100 },
             timeLeft: CONFIG.dfDuration, zombiesKilled: 0,
+            respawnQueue: [],              // === НОВОЕ ===
+            allyDeaths: 0,
+            alliesRespawned: 0,
         };
         for (let i = 0; i < 8; i++) spawnMatterOnGround();
         p.isDarkFrontAlly = true;
@@ -1062,13 +1347,29 @@
         state.df.matterOnGround.push({ x, y, value: 1, pulse: Math.random() * Math.PI * 2 });
     }
     
-    function spawnDarkFrontAlly() {
-        const angle = Math.random() * Math.PI * 2;
-        const dist = 200 + Math.random() * 300;
-        let x = state.player.x + Math.cos(angle) * dist;
-        let y = state.player.y + Math.sin(angle) * dist;
+    // === Обновлённый спавн союзника (для возрождения) ===
+    function spawnDarkFrontAlly(isRespawn = false) {
+        const p = state.player;
+        let x, y;
+        
+        if (isRespawn) {
+            // Возрождаемся рядом с базой
+            const base = state.df.base;
+            const angle = Math.random() * Math.PI * 2;
+            const dist = base.radius + 80 + Math.random() * 100;
+            x = base.x + Math.cos(angle) * dist;
+            y = base.y + Math.sin(angle) * dist;
+        } else {
+            // Первичный спавн — рядом с игроком
+            const angle = Math.random() * Math.PI * 2;
+            const dist = 200 + Math.random() * 300;
+            x = p.x + Math.cos(angle) * dist;
+            y = p.y + Math.sin(angle) * dist;
+        }
+        
         x = Math.max(60, Math.min(CONFIG.worldWidth - 60, x));
         y = Math.max(60, Math.min(CONFIG.worldHeight - 60, y));
+        
         state.allies.push({
             x, y, angle: 0, hp: 180, maxHp: 180,
             speed: CONFIG.allyBaseSpeed * 1.1, damage: 30, armor: 4,
@@ -1076,8 +1377,14 @@
             color: '#8b1a1a', nation: 'ussr', radius: 22,
             isPlayer: false, isAlly: true, isDarkFrontAlly: true, hostile: false,
             name: 'Союзник', carriesMatter: 0, aiState: 'hunt',
+            vx: 0, vy: 0,
             tankData: { nation: 'ussr', level: 5, color: '#8b1a1a', isDarkFrontAlly: true },
         });
+        
+        if (isRespawn) {
+            createParticles(x, y, '#76ff03', 25);
+            addKillFeed('🔄 Союзник возрождён!');
+        }
     }
     
     function spawnZombieTank() {
@@ -1096,6 +1403,7 @@
             fireRate: 90 - level * 5, fireTimer: 60 + Math.random() * 60,
             color: '#3a5a3a', nation: 'germany', radius: 22,
             isPlayer: false, isZombie: true, hostile: true, name: '🧟 Зомби',
+            vx: 0, vy: 0,
             tankData: { nation: 'germany', level, color: '#3a5a3a', isZombie: true },
         });
     }
@@ -1119,6 +1427,7 @@
             radius: 60,
             isPlayer: false, isLeviathan: true, isBoss: true, hostile: true,
             name: '👹 Левиафан',
+            vx: 0, vy: 0,
             tankData: { nation: 'leviathan', level: 99, color: '#808080', isLeviathan: true },
         };
         p.isEventTank = true;
@@ -1128,16 +1437,13 @@
         p.backGun = state.selectedTank.backGun || false;
         p.x = state.lv.gates.x - 400;
         p.y = state.lv.gates.y + 400;
-        
         state.allies = [];
         for (let i = 0; i < 2; i++) spawnLeviathanAlly(i);
         state.enemies = [];
         for (let i = 0; i < CONFIG.leviathanMinions; i++) spawnRedMinion();
-        
         state.lv.startPos = { x: state.lv.boss.x, y: state.lv.boss.y };
         state.lv.totalDist = Math.hypot(state.lv.gates.x - state.lv.boss.x, state.lv.gates.y - state.lv.boss.y);
         state.energyDrops = [];
-        state.reloadTimerBack = 0;
     }
     
     function spawnLeviathanAlly(index) {
@@ -1150,18 +1456,15 @@
         y = Math.max(60, Math.min(CONFIG.worldHeight - 60, y));
         const isSteinAlly = Math.random() < 0.5;
         state.allies.push({
-            x, y, angle: 0,
-            hp: 400, maxHp: 400,
-            speed: 2.0,
-            damage: isSteinAlly ? 35 : 50,
-            armor: isSteinAlly ? 9 : 6,
-            fireRate: isSteinAlly ? 25 : 40,
-            fireTimer: Math.random() * 40,
+            x, y, angle: 0, hp: 400, maxHp: 400, speed: 2.0,
+            damage: isSteinAlly ? 35 : 50, armor: isSteinAlly ? 9 : 6,
+            fireRate: isSteinAlly ? 25 : 40, fireTimer: Math.random() * 40,
             color: isSteinAlly ? '#0d47a1' : '#1565c0',
             nation: 'leviathan', radius: 24,
             isPlayer: false, isAlly: true, isEventTank: true,
             isFrankie: !isSteinAlly, isStein: isSteinAlly,
             backGun: isSteinAlly, hostile: false,
+            vx: 0, vy: 0,
             name: isSteinAlly ? '🔶 Штейн' : '🔷 Фрэнки',
             tankData: { nation: 'leviathan', level: 10, color: isSteinAlly ? '#0d47a1' : '#1565c0', isFrankie: !isSteinAlly, isStein: isSteinAlly },
         });
@@ -1179,36 +1482,474 @@
         const level = 4 + Math.floor(Math.random() * 3);
         state.enemies.push({
             x, y, angle: -Math.PI / 4,
-            hp: isRedStein ? 300 : 220,
-            maxHp: isRedStein ? 300 : 220,
+            hp: isRedStein ? 300 : 220, maxHp: isRedStein ? 300 : 220,
             speed: isRedStein ? 1.9 : 1.7,
-            damage: isRedStein ? 30 : 45,
-            armor: isRedStein ? 8 : 5,
-            fireRate: isRedStein ? 30 : 45,
-            fireTimer: 30 + Math.random() * 60,
+            damage: isRedStein ? 30 : 45, armor: isRedStein ? 8 : 5,
+            fireRate: isRedStein ? 30 : 45, fireTimer: 30 + Math.random() * 60,
             color: isRedStein ? '#7f0000' : '#b71c1c',
             nation: 'leviathan', radius: 24,
             isPlayer: false, isMinion: true, isRedEventTank: true,
             isRedStein: isRedStein, isRedFrankie: !isRedStein,
             backGun: isRedStein, hostile: true,
+            vx: 0, vy: 0,
             name: isRedStein ? '🔻 Красный Штейн' : '🔺 Красный Фрэнки',
             tankData: { nation: 'leviathan', level, color: isRedStein ? '#7f0000' : '#b71c1c', isRedFrankie: !isRedStein, isRedStein: isRedStein },
         });
     }
     
-    // ==================== ОБНОВЛЕНИЕ ТЁМНОГО ФРОНТА ====================
+    function initSpaceTank() {
+        const p = state.player;
+        p.isBall = true;
+        p.isBallAlly = true;
+        p.color = '#1565c0';
+        p.hp = 250; p.maxHp = 250;
+        p.speed = 4.2;
+        p.damage = CONFIG.laserDamage;
+        p.reload = 22;
+        p.armor = 3;
+        p.radius = 22;
+        p.vx = 0; p.vy = 0;
+        p.x = CONFIG.worldWidth / 2;
+        p.y = CONFIG.worldHeight - 400;
+        p.angle = -Math.PI / 2;
+        state.allies = [];
+        for (let i = 0; i < 6; i++) spawnBallAlly(i);
+        state.enemies = [];
+        for (let i = 0; i < 7; i++) spawnBallEnemy(i);
+        state.lavaPools = generateLavaPools();
+        state.craters = generateCraters();
+        state.space.timeLeft = CONFIG.spaceDuration;
+        state.space.blueAlive = 7;
+        state.space.redAlive = 7;
+        state.space.eventTimer = CONFIG.spaceEventInterval;
+        state.space.eventQueue = [...RANDOM_EVENTS].sort(() => Math.random() - 0.5);
+        state.space.nextEventIndex = 0;
+        state.space.activeEvent = null;
+        state.space.eventDuration = 0;
+        state.space.speedMultiplier = 1;
+        state.space.reloadMultiplier = 1;
+        state.space.isLowGravity = false;
+        state.space.isSolarBoost = false;
+    }
+    
+    function spawnBallAlly(index) {
+        const p = state.player;
+        const cols = 3;
+        const col = index % cols;
+        const row = Math.floor(index / cols);
+        const offsetX = (col - (cols - 1) / 2) * 120;
+        const offsetY = -200 - row * 120;
+        state.allies.push({
+            x: p.x + offsetX, y: p.y + offsetY, angle: -Math.PI / 2,
+            hp: 250, maxHp: 250, speed: 3.5, damage: CONFIG.laserDamage, armor: 3,
+            fireRate: 25, fireTimer: Math.random() * 25,
+            color: '#1565c0', nation: 'ussr', radius: 22,
+            isPlayer: false, isAlly: true, hostile: false,
+            isBall: true, isBallAlly: true,
+            vx: 0, vy: 0,
+            name: '🔵 ИС-360',
+            tankData: { nation: 'ussr', level: 10, color: '#1565c0', isBall: true, isBallAlly: true },
+        });
+    }
+    
+    function spawnBallEnemy(index) {
+        const cols = 3;
+        const col = index % cols;
+        const row = Math.floor(index / cols);
+        const offsetX = (col - (cols - 1) / 2) * 130;
+        const offsetY = 100 + row * 120;
+        state.enemies.push({
+            x: CONFIG.worldWidth / 2 + offsetX,
+            y: 400 + offsetY,
+            angle: Math.PI / 2,
+            hp: 250, maxHp: 250, speed: 3.2, damage: CONFIG.laserDamage, armor: 3,
+            fireRate: 28, fireTimer: 30 + Math.random() * 30,
+            color: '#c62828', nation: 'ussr', radius: 22,
+            isPlayer: false, hostile: true,
+            isBall: true, isBallEnemy: true,
+            vx: 0, vy: 0,
+            name: '🔴 ИС-360',
+            tankData: { nation: 'ussr', level: 10, color: '#c62828', isBall: true, isBallEnemy: true },
+        });
+    }
+    
+    // ==================== СОБЫТИЯ ====================
+    function triggerRandomEvent() {
+        if (state.space.eventQueue.length === 0) {
+            state.space.eventQueue = [...RANDOM_EVENTS].sort(() => Math.random() - 0.5);
+            state.space.nextEventIndex = 0;
+        }
+        const event = state.space.eventQueue[state.space.nextEventIndex];
+        state.space.nextEventIndex++;
+        state.space.activeEvent = event;
+        state.space.eventDuration = 300;
+        
+        evIcon.textContent = event.icon;
+        evTitle.textContent = event.title;
+        evDesc.textContent = event.desc;
+        eventNotification.style.borderColor = event.color;
+        eventNotification.style.boxShadow = `0 0 50px ${event.color}90, inset 0 0 30px ${event.color}40`;
+        eventNotification.classList.add('active');
+        
+        switch (event.id) {
+            case 'lowGravity':
+                state.space.speedMultiplier = 1.5;
+                state.space.isLowGravity = true;
+                if (state.player) state.player.speed = 4.2 * 1.5;
+                state.allies.forEach(a => { a.speed = a.speed * 1.5; });
+                state.enemies.forEach(e => { e.speed = e.speed * 1.5; });
+                break;
+            case 'solarFlare':
+                state.space.isSolarBoost = true;
+                if (state.player) state.player.damage *= 2;
+                break;
+            case 'cosmicStorm':
+                state.space.reloadMultiplier = 0.5;
+                if (state.player) state.reload = Math.floor(state.player.reload * 0.5);
+                break;
+            case 'lavaEruption':
+                state.lavaPools.forEach(lp => {
+                    if (!lp.expanded) { lp.radius += 60; lp.expanded = true; }
+                });
+                break;
+            case 'meteorRain':
+                for (let i = 0; i < 8; i++) {
+                    const angle = Math.random() * Math.PI * 2;
+                    const dist = 200 + Math.random() * 800;
+                    const x = state.player.x + Math.cos(angle) * dist;
+                    const y = state.player.y + Math.sin(angle) * dist;
+                    state.particles.push({
+                        x, y, vx: 0, vy: 0,
+                        life: 60, maxLife: 60, size: 20, color: '#ff5722',
+                        isMeteor: true,
+                        meteorX: Math.max(60, Math.min(CONFIG.worldWidth - 60, x)),
+                        meteorY: Math.max(60, Math.min(CONFIG.worldHeight - 60, y)),
+                    });
+                }
+                addKillFeed('☄️ Метеоритный дождь!');
+                break;
+            case 'alienSignal':
+                state.enemies.forEach(e => {
+                    const angle = Math.atan2(e.y - state.player.y, e.x - state.player.x);
+                    const push = 300;
+                    e.x += Math.cos(angle) * push;
+                    e.y += Math.sin(angle) * push;
+                    e.x = Math.max(e.radius, Math.min(CONFIG.worldWidth - e.radius, e.x));
+                    e.y = Math.max(e.radius, Math.min(CONFIG.worldHeight - e.radius, e.y));
+                    createParticles(e.x, e.y, '#ce93d8', 10);
+                });
+                addKillFeed('📡 Врагов отбросило!');
+                break;
+        }
+        addKillFeed(`✨ ${event.icon} ${event.title}`);
+        setTimeout(() => { eventNotification.classList.remove('active'); }, 2500);
+    }
+    
+    function endRandomEvent() {
+        const event = state.space.activeEvent;
+        if (!event) return;
+        switch (event.id) {
+            case 'lowGravity':
+                state.space.speedMultiplier = 1;
+                state.space.isLowGravity = false;
+                if (state.player) state.player.speed = 4.2;
+                state.allies.forEach(a => { a.speed = 3.5; });
+                state.enemies.forEach(e => { e.speed = 3.2; });
+                break;
+            case 'solarFlare':
+                state.space.isSolarBoost = false;
+                if (state.player) state.player.damage = CONFIG.laserDamage;
+                break;
+            case 'cosmicStorm':
+                state.space.reloadMultiplier = 1;
+                if (state.player) state.player.reload = 22;
+                break;
+        }
+        state.space.activeEvent = null;
+        state.space.eventDuration = 0;
+    }
+    
+    // ==================== ОБНОВЛЕНИЕ ШАРОТАНКА ====================
+    function updateSpaceTank(dt) {
+        const p = state.player;
+        const sp = state.space;
+        
+        sp.timeLeft -= dt / 60;
+        if (sp.timeLeft <= 0) {
+            sp.timeLeft = 0;
+            if (sp.blueAlive > sp.redAlive) endSpaceTank('victory');
+            else if (sp.redAlive > sp.blueAlive) endSpaceTank('defeat');
+            else endSpaceTank('draw');
+            return;
+        }
+        
+        state.lavaPools.forEach(lp => { lp.pulse += 0.08 * dt; });
+        
+        if (Math.abs(p.vx) > 0.1 || Math.abs(p.vy) > 0.1) {
+            p.x += p.vx * dt;
+            p.y += p.vy * dt;
+            p.vx *= Math.pow(CONFIG.knockbackDecay, dt);
+            p.vy *= Math.pow(CONFIG.knockbackDecay, dt);
+            if (Math.abs(p.vx) < 0.1) p.vx = 0;
+            if (Math.abs(p.vy) < 0.1) p.vy = 0;
+            p.x = Math.max(p.radius, Math.min(CONFIG.worldWidth - p.radius, p.x));
+            p.y = Math.max(p.radius, Math.min(CONFIG.worldHeight - p.radius, p.y));
+        }
+        
+        const allTanks = [p, ...state.allies, ...state.enemies];
+        allTanks.forEach(t => {
+            if (!t || t.hp <= 0) return;
+            if (Math.abs(t.vx || 0) > 0.1 || Math.abs(t.vy || 0) > 0.1) {
+                t.x += (t.vx || 0) * dt;
+                t.y += (t.vy || 0) * dt;
+                t.vx = (t.vx || 0) * Math.pow(CONFIG.knockbackDecay, dt);
+                t.vy = (t.vy || 0) * Math.pow(CONFIG.knockbackDecay, dt);
+                if (Math.abs(t.vx) < 0.1) t.vx = 0;
+                if (Math.abs(t.vy) < 0.1) t.vy = 0;
+                t.x = Math.max(t.radius, Math.min(CONFIG.worldWidth - t.radius, t.x));
+                t.y = Math.max(t.radius, Math.min(CONFIG.worldHeight - t.radius, t.y));
+            }
+        });
+        
+        let inLava = false;
+        for (const lp of state.lavaPools) {
+            if (Math.hypot(p.x - lp.x, p.y - lp.y) < lp.radius) { inLava = true; break; }
+        }
+        if (inLava) {
+            p.hp -= CONFIG.lavaDamage * dt / 60;
+            if (Math.random() < 0.3) createParticles(p.x, p.y, '#ff5722', 3);
+            lavaWarning.classList.add('active');
+            if (p.hp <= 0) { onPlayerDeath(); return; }
+        } else {
+            lavaWarning.classList.remove('active');
+        }
+        
+        state.enemies.forEach(e => {
+            if (e.hp <= 0) return;
+            for (const lp of state.lavaPools) {
+                if (Math.hypot(e.x - lp.x, e.y - lp.y) < lp.radius * 0.7) {
+                    e.hp -= CONFIG.lavaDamage * 2 * dt / 60;
+                    createParticles(e.x, e.y, '#ff5722', 2);
+                    if (e.hp <= 0) {
+                        state.kills++;
+                        sp.redAlive--;
+                        addKillFeed(`🌋 ${e.name} упал в лаву!`);
+                        createParticles(e.x, e.y, '#ff5722', 30);
+                        updateSpaceHUD();
+                        checkSpaceEnd();
+                    }
+                    break;
+                }
+            }
+        });
+        
+        state.allies.forEach(a => {
+            if (a.hp <= 0) return;
+            for (const lp of state.lavaPools) {
+                if (Math.hypot(a.x - lp.x, a.y - lp.y) < lp.radius * 0.7) {
+                    a.hp -= CONFIG.lavaDamage * 2 * dt / 60;
+                    createParticles(a.x, a.y, '#ff5722', 2);
+                    if (a.hp <= 0) {
+                        sp.blueAlive--;
+                        addKillFeed(`💀 ${a.name} упал в лаву`);
+                        createParticles(a.x, a.y, '#ff5722', 30);
+                        updateSpaceHUD();
+                        checkSpaceEnd();
+                    }
+                    break;
+                }
+            }
+        });
+        
+        state.allies.forEach(a => {
+            if (a.hp <= 0) return;
+            let nearest = null, minDist = 900;
+            state.enemies.forEach(e => {
+                if (e.hp <= 0) return;
+                const d = Math.hypot(e.x - a.x, e.y - a.y);
+                if (d < minDist) { minDist = d; nearest = e; }
+            });
+            if (nearest) {
+                const angleToEnemy = Math.atan2(nearest.y - a.y, nearest.x - a.x);
+                a.angle = angleToEnemy;
+                if (minDist > 150) {
+                    a.x += Math.cos(angleToEnemy) * a.speed * dt;
+                    a.y += Math.sin(angleToEnemy) * a.speed * dt;
+                }
+                a.fireTimer -= dt;
+                if (a.fireTimer <= 0 && minDist < 550) {
+                    shoot(a, angleToEnemy, CONFIG.bulletSpeed * 0.85, a.damage, false, true);
+                    a.fireTimer = a.fireRate;
+                }
+            }
+            a.x = Math.max(a.radius, Math.min(CONFIG.worldWidth - a.radius, a.x));
+            a.y = Math.max(a.radius, Math.min(CONFIG.worldHeight - a.radius, a.y));
+            resolveObstacleCollision(a);
+        });
+        
+        state.enemies.forEach(e => {
+            if (e.hp <= 0) return;
+            const targets = [p, ...state.allies.filter(a => a.hp > 0)];
+            let nearest = null, minDist = 900;
+            for (const t of targets) {
+                const d = Math.hypot(t.x - e.x, t.y - e.y);
+                if (d < minDist) { minDist = d; nearest = t; }
+            }
+            if (nearest) {
+                const angleToTarget = Math.atan2(nearest.y - e.y, nearest.x - e.x);
+                if (minDist > 200) {
+                    e.x += Math.cos(angleToTarget) * e.speed * dt;
+                    e.y += Math.sin(angleToTarget) * e.speed * dt;
+                }
+                e.angle = angleToTarget;
+                e.fireTimer -= dt;
+                if (e.fireTimer <= 0 && minDist < 550) {
+                    shoot(e, angleToTarget, CONFIG.bulletSpeed * 0.85, e.damage, false);
+                    e.fireTimer = e.fireRate;
+                }
+            }
+            e.x = Math.max(e.radius, Math.min(CONFIG.worldWidth - e.radius, e.x));
+            e.y = Math.max(e.radius, Math.min(CONFIG.worldHeight - e.radius, e.y));
+            resolveObstacleCollision(e);
+        });
+        
+        checkTankCollisions();
+        
+        sp.eventTimer -= dt / 60;
+        if (sp.eventTimer <= 0) {
+            triggerRandomEvent();
+            sp.eventTimer = CONFIG.spaceEventInterval;
+        }
+        if (sp.activeEvent && sp.eventDuration > 0) {
+            sp.eventDuration -= dt;
+            if (sp.eventDuration <= 0) endRandomEvent();
+        }
+        
+        if (sp.activeEvent && sp.activeEvent.id === 'meteorRain') {
+            state.particles.forEach(pt => {
+                if (pt.isMeteor) {
+                    [p, ...state.enemies, ...state.allies].forEach(t => {
+                        if (!t || t.hp <= 0) return;
+                        if (Math.hypot(t.x - pt.meteorX, t.y - pt.meteorY) < 80) {
+                            t.hp -= 2 * dt;
+                        }
+                    });
+                }
+            });
+        }
+        
+        const playerSpeedFromKnockback = Math.hypot(p.vx, p.vy);
+        if (playerSpeedFromKnockback > 2) {
+            speedIndicator.classList.add('active');
+            speedBarFill.style.width = Math.min(100, playerSpeedFromKnockback / 20 * 100) + '%';
+        } else {
+            speedIndicator.classList.remove('active');
+        }
+        
+        updateSpaceHUD();
+    }
+    
+    function checkTankCollisions() {
+        const p = state.player;
+        const allTanks = [p, ...state.allies, ...state.enemies].filter(t => t && t.hp > 0);
+        for (let i = 0; i < allTanks.length; i++) {
+            for (let j = i + 1; j < allTanks.length; j++) {
+                const a = allTanks[i];
+                const b = allTanks[j];
+                const dx = b.x - a.x;
+                const dy = b.y - a.y;
+                const dist = Math.hypot(dx, dy);
+                const minDist = a.radius + b.radius;
+                if (dist < minDist && dist > 0) {
+                    const nx = dx / dist;
+                    const ny = dy / dist;
+                    const overlap = minDist - dist;
+                    a.x -= nx * overlap * 0.5;
+                    a.y -= ny * overlap * 0.5;
+                    b.x += nx * overlap * 0.5;
+                    b.y += ny * overlap * 0.5;
+                    const isHostilePair = (a.isPlayer && (b.isBallEnemy || b.hostile)) ||
+                                          (b.isPlayer && (a.isBallEnemy || a.hostile));
+                    const knockbackPower = isHostilePair ? CONFIG.collisionKnockback * 1.3 : CONFIG.collisionKnockback;
+                    a.vx = (a.vx || 0) - nx * knockbackPower;
+                    a.vy = (a.vy || 0) - ny * knockbackPower;
+                    b.vx = (b.vx || 0) + nx * knockbackPower;
+                    b.vy = (b.vy || 0) + ny * knockbackPower;
+                    createParticles((a.x + b.x) / 2, (a.y + b.y) / 2, isHostilePair ? '#ff9800' : '#64b5f6', 8);
+                    a.x = Math.max(a.radius, Math.min(CONFIG.worldWidth - a.radius, a.x));
+                    a.y = Math.max(a.radius, Math.min(CONFIG.worldHeight - a.radius, a.y));
+                    b.x = Math.max(b.radius, Math.min(CONFIG.worldWidth - b.radius, b.x));
+                    b.y = Math.max(b.radius, Math.min(CONFIG.worldHeight - b.radius, b.y));
+                }
+            }
+        }
+    }
+    
+    function updateSpaceHUD() {
+        const sp = state.space;
+        const aliveEnemies = state.enemies.filter(e => e.hp > 0).length;
+        const aliveAllies = state.allies.filter(a => a.hp > 0).length;
+        sp.blueAlive = aliveAllies + (state.player.hp > 0 ? 1 : 0);
+        sp.redAlive = aliveEnemies;
+        spEnemies.textContent = sp.redAlive;
+        spAllies.textContent = sp.blueAlive;
+        tsBlue.textContent = sp.blueAlive;
+        tsRed.textContent = sp.redAlive;
+        const t = Math.max(0, sp.timeLeft);
+        const min = Math.floor(t / 60);
+        const sec = Math.floor(t % 60);
+        spTimer.textContent = `${min.toString().padStart(2, '0')}:${sec.toString().padStart(2, '0')}`;
+        spTimer.classList.toggle('warning', t < 30);
+    }
+    
+    function checkSpaceEnd() {
+        if (state.battleEnded) return;
+        const sp = state.space;
+        const playerAlive = state.player && state.player.hp > 0;
+        if (sp.redAlive <= 0) endSpaceTank('victory');
+        else if (!playerAlive) endSpaceTank('defeat');
+    }
+    
+    function endSpaceTank(result) {
+        if (state.battleEnded) return;
+        state.battleEnded = true;
+        if (state.gameLoop) cancelAnimationFrame(state.gameLoop);
+        victoryScreen.classList.remove('dark-front-win', 'leviathan-win', 'leviathan-lose');
+        if (result === 'victory') {
+            victoryTitle.textContent = '🏆 ПОБЕДА!';
+            victoryTitle.style.color = '#64b5f6';
+            victoryScreen.classList.add('space-win');
+        } else if (result === 'defeat') {
+            victoryTitle.textContent = '💀 ПОРАЖЕНИЕ';
+            victoryTitle.style.color = '#ef5350';
+            victoryScreen.classList.add('space-lose');
+        } else {
+            victoryTitle.textContent = '🤝 НИЧЬЯ';
+            victoryTitle.style.color = '#aaa';
+        }
+        const sp = state.space;
+        victoryStats.innerHTML = `
+            🛸 <b style="color:#64b5f6;font-size:20px;">ИС-360 ШАРОТАНК</b><br><br>
+            🎯 Убийств: <b style="color:#ffd966;">${state.kills}</b><br>
+            💀 Смертей: ${state.deaths}<br>
+            🔵 Выжило союзников: ${sp.blueAlive}<br>
+            🔴 Осталось врагов: ${sp.redAlive}<br>
+            ⏱️ Осталось времени: ${Math.floor(sp.timeLeft / 60)}:${Math.floor(sp.timeLeft % 60).toString().padStart(2, '0')}<br>
+            <br>💡 <i>Событий произошло: ${sp.nextEventIndex}</i>
+        `;
+        victoryScreen.classList.add('active');
+    }
+    
+    // ==================== ТЁМНЫЙ ФРОНТ (с возрождением) ====================
     function updateDarkFront(dt) {
         const p = state.player;
         const df = state.df;
-        
-        // Таймер
         df.timeLeft -= dt / 60;
         if (df.timeLeft <= 0) { df.timeLeft = 0; endDarkFront(); return; }
         
-        // Пульсация материи
         df.matterOnGround.forEach(m => { m.pulse += 0.1 * dt; });
         
-        // === Сбор материи игроком ===
+        // Сбор материи игроком
         for (let i = df.matterOnGround.length - 1; i >= 0; i--) {
             const m = df.matterOnGround[i];
             if (Math.hypot(p.x - m.x, p.y - m.y) < p.radius + 25) {
@@ -1221,12 +1962,10 @@
             }
         }
         
-        // === Логика союзников ===
+        // === ЛОГИКА СОЮЗНИКОВ ===
         state.allies.forEach(a => {
             if (a.hp <= 0 || !a.isDarkFrontAlly) return;
             const maxCarry = CONFIG.dfMaxCarry;
-            
-            // Определяем состояние
             if (a.carriesMatter >= maxCarry) a.aiState = 'return';
             else if (df.matterOnGround.length > 0) a.aiState = 'collect';
             else a.aiState = 'hunt';
@@ -1265,7 +2004,6 @@
                     }
                 }
             } else {
-                // Охотится на зомби
                 let nearest = null, minDist = 800;
                 state.enemies.forEach(e => {
                     if (e.hp <= 0) return;
@@ -1299,11 +2037,11 @@
             resolveObstacleCollision(a);
         });
         
-        // === ПОКАЗ КНОПКИ СДАЧИ МАТЕРИИ ===
-        const atBase = Math.hypot(p.x - df.base.x, p.y - df.base.y) < df.base.radius;
+        // === НОВОЕ: ОБРАБОТКА ОЧЕРЕДИ ВОЗРОЖДЕНИЯ ===
+        updateDarkFrontRespawn(dt);
         
+        const atBase = Math.hypot(p.x - df.base.x, p.y - df.base.y) < df.base.radius;
         if (atBase && df.playerMatter > 0) {
-            // Показываем кнопку сдачи материи
             actionBtn.classList.add('active', 'matter');
             actionBtn.classList.remove('energy');
             actionBtn.textContent = `📦 СДАТЬ ${df.playerMatter} МАТЕРИИ`;
@@ -1318,14 +2056,65 @@
             baseHint.classList.remove('active');
         }
         
-        // === Респавн материи ===
         if (df.matterOnGround.length < 12 && Math.random() < 0.02 * dt) spawnMatterOnGround();
-        
-        // === Респавн зомби ===
         state.enemies = state.enemies.filter(e => e.hp > 0);
         if (state.enemies.length < CONFIG.dfZombieCount && Math.random() < 0.01 * dt) spawnZombieTank();
-        
         updateDarkFrontHUD();
+    }
+    
+    // === НОВАЯ ФУНКЦИЯ: обработка возрождения союзников ===
+    function updateDarkFrontRespawn(dt) {
+        const df = state.df;
+        const dtSec = dt / 60;
+        
+        // Обновляем таймеры в очереди
+        for (let i = df.respawnQueue.length - 1; i >= 0; i--) {
+            const entry = df.respawnQueue[i];
+            entry.timeLeft -= dtSec;
+            
+            if (entry.timeLeft <= 0) {
+                // Время вышло — возрождаем союзника
+                const aliveAllies = state.allies.filter(a => a.hp > 0 && a.isDarkFrontAlly).length;
+                if (aliveAllies < CONFIG.dfMaxAllies) {
+                    spawnDarkFrontAlly(true);
+                    df.alliesRespawned++;
+                }
+                df.respawnQueue.splice(i, 1);
+            }
+        }
+        
+        // Показать/скрыть индикатор возрождения
+        if (df.respawnQueue.length > 0) {
+            // Берём первый в очереди для отображения
+            const next = df.respawnQueue[0];
+            const totalTime = CONFIG.dfAllyRespawnTime;
+            const elapsed = totalTime - next.timeLeft;
+            const pct = Math.min(100, elapsed / totalTime * 100);
+            
+            respawnIndicator.classList.add('active');
+            riTimer.textContent = next.timeLeft.toFixed(1) + 'с';
+            riBarFill.style.width = pct + '%';
+        } else {
+            respawnIndicator.classList.remove('active');
+        }
+    }
+    
+    // === НОВАЯ ФУНКЦИЯ: добавление в очередь возрождения ===
+    function queueAllyRespawn() {
+        const df = state.df;
+        // Считаем сколько уже в очереди + живых
+        const aliveAllies = state.allies.filter(a => a.hp > 0 && a.isDarkFrontAlly).length;
+        const queueLen = df.respawnQueue.length;
+        const total = aliveAllies + queueLen;
+        
+        // Если общее число < максимума — добавляем в очередь
+        if (total < CONFIG.dfMaxAllies) {
+            df.respawnQueue.push({
+                timeLeft: CONFIG.dfAllyRespawnTime,
+                totalTime: CONFIG.dfAllyRespawnTime,
+            });
+            addKillFeed(`🔄 Союзник возродится через ${CONFIG.dfAllyRespawnTime}с`);
+        }
     }
     
     function updateDarkFrontHUD() {
@@ -1334,15 +2123,17 @@
         dfDelivered.textContent = df.delivered;
         dfZombies.textContent = state.enemies.filter(e => e.hp > 0).length;
         
-        // Индикатор переноски
+        // Показываем количество живых союзников + тех, кто в очереди
+        const aliveAllies = state.allies.filter(a => a.hp > 0 && a.isDarkFrontAlly).length;
+        const queueLen = df.respawnQueue.length;
+        dfAllies.textContent = `${aliveAllies + queueLen}/${CONFIG.dfMaxAllies}`;
+        
         if (df.playerMatter > 0) {
             matterIndicator.classList.add('active');
             matterValue.textContent = df.playerMatter;
         } else {
             matterIndicator.classList.remove('active');
         }
-        
-        // Таймер
         const t = Math.max(0, df.timeLeft);
         const min = Math.floor(t / 60);
         const sec = Math.floor(t % 60);
@@ -1350,21 +2141,12 @@
         dfTimer.classList.toggle('warning', t < 60);
     }
     
-    // === СДАТЬ МАТЕРИЮ ===
     function dropMatter() {
         const p = state.player;
         const df = state.df;
         const atBase = Math.hypot(p.x - df.base.x, p.y - df.base.y) < df.base.radius;
-        
-        if (!atBase) {
-            addKillFeed('⚠️ Не на базе!');
-            return;
-        }
-        if (df.playerMatter <= 0) {
-            addKillFeed('⚠️ Нет материи');
-            return;
-        }
-        
+        if (!atBase) { addKillFeed('⚠️ Не на базе!'); return; }
+        if (df.playerMatter <= 0) { addKillFeed('⚠️ Нет материи'); return; }
         df.delivered += df.playerMatter;
         createParticles(p.x, p.y, '#76ff03', 30);
         addKillFeed(`🧪 Вы сдали ${df.playerMatter} материи!`);
@@ -1383,20 +2165,19 @@
             📦 Доставлено: <b style="color:#76ff03;font-size:20px;">${df.delivered}</b><br>
             🧪 Собрано: ${Math.floor(df.teamMatter)}<br>
             🎯 Убито: ${state.kills}<br>
-            💀 Смертей: ${state.deaths}
+            💀 Смертей: ${state.deaths}<br>
+            🔄 Возрождено союзников: <b style="color:#64b5f6;">${df.alliesRespawned}</b>
         `;
     }
     
-    // ==================== ОБНОВЛЕНИЕ ЛЕВИАФАНА ====================
+    // ==================== ЛЕВИАФАН ====================
     function updateLeviathan(dt) {
         const boss = state.lv.boss;
         const gates = state.lv.gates;
         const lv = state.lv;
         const p = state.player;
-        
         lv.timeLeft -= dt / 60;
         if (lv.timeLeft <= 0) { lv.timeLeft = 0; endLeviathan('timeout'); return; }
-        
         if (boss.hp > 0) {
             const distToGate = Math.hypot(gates.x - boss.x, gates.y - boss.y);
             if (distToGate > gates.radius - boss.radius * 0.5) {
@@ -1404,15 +2185,10 @@
                 boss.x += Math.cos(angleToGate) * boss.speed * dt;
                 boss.y += Math.sin(angleToGate) * boss.speed * dt;
                 boss.angle = angleToGate;
-            } else {
-                lv.progress = 1;
-            }
-            
+            } else lv.progress = 1;
             const currentDist = Math.hypot(gates.x - boss.x, gates.y - boss.y);
             lv.progress = Math.max(0, Math.min(1, 1 - currentDist / lv.totalDist));
-            
             if (currentDist < gates.radius * 0.8) { endLeviathan('apocalypse'); return; }
-            
             boss.fireTimer -= dt;
             if (boss.fireTimer <= 0) {
                 const targets = [p, ...state.allies.filter(a => a.hp > 0)];
@@ -1432,8 +2208,6 @@
                 boss.fireTimer = boss.fireRate;
             }
         }
-        
-        // Приспешники
         state.enemies.forEach(e => {
             if (e.hp <= 0 || !e.isMinion) return;
             const targets = [p, ...state.allies.filter(a => a.hp > 0)];
@@ -1460,8 +2234,6 @@
             e.y = Math.max(e.radius, Math.min(CONFIG.worldHeight - e.radius, e.y));
             resolveObstacleCollision(e);
         });
-        
-        // Союзники
         state.allies.forEach(a => {
             if (a.hp <= 0) return;
             let target = null;
@@ -1505,8 +2277,6 @@
             a.y = Math.max(a.radius, Math.min(CONFIG.worldHeight - a.radius, a.y));
             resolveObstacleCollision(a);
         });
-        
-        // Сбор энергии
         for (let i = state.energyDrops.length - 1; i >= 0; i--) {
             const e = state.energyDrops[i];
             if (Math.hypot(p.x - e.x, p.y - e.y) < p.radius + 25) {
@@ -1518,8 +2288,6 @@
                 }
             }
         }
-        
-        // === ПОКАЗ КНОПКИ ЭНЕРГИИ ===
         if (lv.energyCount > 0 && p.hp < p.maxHp) {
             actionBtn.classList.add('active', 'energy');
             actionBtn.classList.remove('matter');
@@ -1527,34 +2295,27 @@
         } else {
             actionBtn.classList.remove('active');
         }
-        
         updateLeviathanHUD();
     }
     
     function updateLeviathanHUD() {
         const lv = state.lv;
         const boss = lv.boss;
-        
         lvStatus.textContent = boss && boss.hp > 0 ? 'ЖИВ' : 'УНИЧТОЖЕН';
         lvStatus.style.color = boss && boss.hp > 0 ? '#ef5350' : '#66bb6a';
-        
-        const aliveMinions = state.enemies.filter(e => e.hp > 0 && e.isMinion).length;
-        lvMinions.textContent = aliveMinions;
+        lvMinions.textContent = state.enemies.filter(e => e.hp > 0 && e.isMinion).length;
         lvEnergy.textContent = lv.energyCount;
         lvProgress.textContent = Math.floor(lv.progress * 100) + '%';
-        
         if (boss) {
             const ratio = Math.max(0, boss.hp / boss.maxHp);
             lvHpFill.style.width = (ratio * 100) + '%';
             lvHpText.textContent = `${Math.max(0, Math.ceil(boss.hp))} / ${boss.maxHp}`;
         }
-        
         const t = Math.max(0, lv.timeLeft);
         const min = Math.floor(t / 60);
         const sec = Math.floor(t % 60);
         lvTimer.textContent = `${min.toString().padStart(2, '0')}:${sec.toString().padStart(2, '0')}`;
         lvTimer.classList.toggle('warning', t < 60);
-        
         if (lv.energyCount > 0) {
             energyIndicator.classList.add('active');
             energyValue.textContent = lv.energyCount;
@@ -1563,19 +2324,16 @@
         }
     }
     
-    // === ИСПОЛЬЗОВАТЬ ЭНЕРГИЮ ===
     function useEnergy() {
         const lv = state.lv;
         const p = state.player;
         if (lv.energyCount <= 0) { addKillFeed('⚠️ Нет энергии'); return; }
         if (p.hp >= p.maxHp) { addKillFeed('⚠️ HP полное'); return; }
-        
         const heal = CONFIG.energyHeal;
         p.hp = Math.min(p.maxHp, p.hp + heal);
         lv.energyCount--;
         createParticles(p.x, p.y, '#ffffff', 30);
         addKillFeed(`⚡ +${heal} HP`);
-        
         state.allies.forEach(a => {
             if (a.hp > 0 && a.hp < a.maxHp) {
                 a.hp = Math.min(a.maxHp, a.hp + heal * 0.5);
@@ -1591,7 +2349,6 @@
         const lv = state.lv;
         const boss = lv.boss;
         let win = false;
-        
         if (reason === 'boss-killed' || (boss && boss.hp <= 0)) {
             win = true;
             victoryTitle.textContent = '🏆 ЛЕВИАФАН ПОВЕРЖЕН!';
@@ -1611,7 +2368,6 @@
                 victoryScreen.classList.add('leviathan-lose');
             }
         }
-        
         victoryStats.innerHTML = `
             ${win ? '✅' : '❌'} <b style="font-size:20px;">${win ? 'ПОБЕДА!' : 'ПОРАЖЕНИЕ'}</b><br><br>
             👹 Левиафан: ${boss ? Math.max(0, Math.ceil(boss.hp)) + ' / ' + boss.maxHp : '—'}<br>
@@ -1626,9 +2382,9 @@
     // ==================== ЗАПУСК БОЯ ====================
     function startBattle() {
         if (!state.selectedTank) return;
-        const t = state.selectedTank;
         const mode = BATTLE_MODES[state.selectedMode];
         const map = MAPS[state.selectedMap];
+        const t = state.selectedTank;
         
         state.battleEnded = false;
         state.battleTime = 0;
@@ -1639,6 +2395,8 @@
         state.autoAimManualOverride = false;
         state.energyDrops = [];
         state.matterOnGround = [];
+        state.lavaPools = [];
+        state.craters = [];
         
         state.player = {
             x: CONFIG.worldWidth / 2, y: CONFIG.worldHeight / 2, angle: 0,
@@ -1649,10 +2407,12 @@
             radius: 24, isPlayer: true, name: t.name, tankData: t,
             isFrankie: t.isFrankie || false, isStein: t.isStein || false,
             backGun: t.backGun || false,
+            isBall: t.isBall || false,
+            vx: 0, vy: 0,
         };
         
         state.enemies = []; state.allies = []; state.bullets = []; state.particles = [];
-        state.obstacles = generateObstacles(map);
+        state.obstacles = [];
         state.kills = 0; state.deaths = 0;
         state.scoreBlue = 0; state.scoreRed = 0;
         state.reloadTimer = 0; state.reloadTimerBack = 0;
@@ -1660,22 +2420,44 @@
         state.camera.y = state.player.y;
         state.joystick = { active: false, dx: 0, dy: 0, touchId: null };
         
-        // Скрыть все HUD
         darkFrontHud.classList.remove('active');
         leviathanHud.classList.remove('active');
+        spaceHud.classList.remove('active');
         leviathanHpBar.classList.remove('active');
+        teamScorePanel.classList.remove('active');
         dfTimer.style.display = 'none';
         lvTimer.style.display = 'none';
+        spTimer.style.display = 'none';
         matterIndicator.classList.remove('active');
         energyIndicator.classList.remove('active');
         actionBtn.classList.remove('active');
         baseHint.classList.remove('active');
+        eventNotification.classList.remove('active');
+        lavaWarning.classList.remove('active');
+        speedIndicator.classList.remove('active');
+        respawnIndicator.classList.remove('active');
         
-        if (mode.isDarkFront) {
+        if (mode.isSpaceTank || (t.isSpaceTank && mode.id !== 'random' && mode.id !== 'deathmatch' && mode.id !== 'teamBattle')) {
+            state.selectedMode = 'spaceTank';
+            state.selectedMap = 'moon';
+            battleInfo.textContent = `🛸 Шаротанк | Карта: Луна`;
+            battleInfo.style.color = '#64b5f6';
+            battleInfo.style.borderColor = '#64b5f6';
+            spaceHud.classList.add('active');
+            spTimer.style.display = 'block';
+            teamScorePanel.classList.add('active');
+            state.lavaPools = generateLavaPools();
+            state.obstacles = generateObstacles(map);
+            state.craters = generateCraters();
+            initSpaceTank();
+            updateSpaceHUD();
+        } else if (mode.isDarkFront) {
             battleInfo.textContent = `🧟 Тёмный фронт | ${map.name}`;
             battleInfo.style.color = '#76ff03';
+            battleInfo.style.borderColor = '#76ff03';
             darkFrontHud.classList.add('active');
             dfTimer.style.display = 'block';
+            state.obstacles = generateObstacles(map);
             initDarkFront();
             updateDarkFrontHUD();
         } else if (mode.isLeviathan) {
@@ -1685,12 +2467,14 @@
             leviathanHud.classList.add('active');
             leviathanHpBar.classList.add('active');
             lvTimer.style.display = 'block';
+            state.obstacles = generateObstacles(map);
             initLeviathan();
             updateLeviathanHUD();
         } else {
             battleInfo.textContent = `Режим: ${mode.name} | Карта: ${map.name}`;
             battleInfo.style.color = '';
             battleInfo.style.borderColor = '';
+            state.obstacles = generateObstacles(map);
             for (let i = 0; i < mode.enemies; i++) spawnEnemy();
             for (let i = 0; i < mode.allies; i++) spawnAlly();
             if (mode.id === 'deathmatch') for (let i = 0; i < 3; i++) spawnAlly({ hostile: true });
@@ -1723,6 +2507,7 @@
             fireRate: 80 - level * 5, fireTimer: 30 + Math.random() * 60,
             color: NATIONS[nation].color, nation, radius: 20,
             isPlayer: false, name: 'Враг',
+            vx: 0, vy: 0,
             tankData: { nation, level, color: NATIONS[nation].color },
         });
     }
@@ -1744,6 +2529,7 @@
             nation: hostile ? 'germany' : allyNation, radius: 20,
             isPlayer: false, isAlly: !hostile, hostile,
             name: hostile ? 'Предатель' : 'Союзник',
+            vx: 0, vy: 0,
             tankData: { nation: allyNation, level: 3, color: hostile ? '#e91e63' : NATIONS[allyNation].color },
         });
     }
@@ -1803,7 +2589,6 @@
             }
         });
         
-        // Джойстик
         const onJoyStart = e => {
             e.preventDefault();
             const touch = e.changedTouches[0];
@@ -1870,7 +2655,6 @@
         autoAimBtn.addEventListener('touchstart', autoAimToggle, { passive: false });
         autoAimBtn.addEventListener('click', autoAimToggle);
         
-        // === КНОПКА ДЕЙСТВИЯ ===
         const actionHandler = e => {
             e.preventDefault();
             e.stopPropagation();
@@ -1964,7 +2748,7 @@
         if (!p || p.hp <= 0 || state.battleEnded) return;
         const mode = BATTLE_MODES[state.selectedMode];
         
-        if (state.battleTimeLimit > 0 && !mode.isDarkFront && !mode.isLeviathan) {
+        if (state.battleTimeLimit > 0 && !mode.isDarkFront && !mode.isLeviathan && !mode.isSpaceTank) {
             state.battleTime += dt;
             if (state.battleTime >= state.battleTimeLimit) {
                 endBattle(state.scoreBlue > state.scoreRed ? 'victory' : (state.scoreBlue < state.scoreRed ? 'defeat' : 'draw'));
@@ -1972,7 +2756,6 @@
             }
         }
         
-        // Движение
         let dx = 0, dy = 0;
         if (state.keys['w'] || state.keys['ц'] || state.keys['arrowup']) dy -= 1;
         if (state.keys['s'] || state.keys['ы'] || state.keys['arrowdown']) dy += 1;
@@ -2024,9 +2807,11 @@
             }
         }
         
-        if (mode.isLeviathan) updateLeviathan(dt);
-        else if (mode.isDarkFront) {
-            // Обычные враги (зомби)
+        if (mode.isSpaceTank) {
+            updateSpaceTank(dt);
+        } else if (mode.isLeviathan) {
+            updateLeviathan(dt);
+        } else if (mode.isDarkFront) {
             state.enemies.forEach(e => {
                 if (e.hp <= 0) return;
                 let target = p;
@@ -2051,10 +2836,8 @@
                 e.y = Math.max(e.radius, Math.min(CONFIG.worldHeight - e.radius, e.y));
                 resolveObstacleCollision(e);
             });
-            // Логика союзников тёмного фронта
             updateDarkFront(dt);
         } else {
-            // Обычные режимы
             state.enemies.forEach(e => {
                 if (e.hp <= 0) return;
                 const angleToPlayer = Math.atan2(p.y - e.y, p.x - e.x);
@@ -2144,7 +2927,6 @@
             let hit = false;
             
             if (b.fromPlayer) {
-                // По Левиафану
                 if (mode.isLeviathan && state.lv.boss && state.lv.boss.hp > 0) {
                     const boss = state.lv.boss;
                     if (Math.hypot(b.x - boss.x, b.y - boss.y) < boss.radius) {
@@ -2167,15 +2949,22 @@
                         if (Math.hypot(b.x - e.x, b.y - e.y) < e.radius + 4) {
                             const dmg = Math.max(1, b.damage - e.armor);
                             e.hp -= dmg;
-                            createParticles(b.x, b.y, '#ff9800', 5);
+                            createParticles(b.x, b.y, mode.isSpaceTank ? '#64b5f6' : '#ff9800', 6);
                             hit = true;
+                            
+                            if (mode.isSpaceTank || e.isBallEnemy) {
+                                const angleFromBullet = Math.atan2(e.y - b.y, e.x - b.x);
+                                e.vx = (e.vx || 0) + Math.cos(angleFromBullet) * CONFIG.laserKnockback;
+                                e.vy = (e.vy || 0) + Math.sin(angleFromBullet) * CONFIG.laserKnockback;
+                                createParticles(b.x, b.y, '#ffffff', 8);
+                            }
+                            
                             if (e.hp <= 0) {
                                 state.kills++;
                                 state.scoreBlue++;
                                 addKillFeed(`🎯 Вы → ${e.name}`);
-                                createParticles(e.x, e.y, mode.isDarkFront ? '#76ff03' : '#f44336', 20);
+                                createParticles(e.x, e.y, mode.isDarkFront ? '#76ff03' : (mode.isSpaceTank ? '#64b5f6' : '#f44336'), 20);
                                 
-                                // Тёмный фронт: выпадает материя
                                 if (mode.isDarkFront) {
                                     for (let k = 0; k < CONFIG.dfMatterPerKill; k++) {
                                         const a = Math.random() * Math.PI * 2;
@@ -2186,10 +2975,7 @@
                                             value: 1, pulse: Math.random() * Math.PI * 2,
                                         });
                                     }
-                                    state.df.zombiesKilled++;
                                 }
-                                
-                                // Левиафан: выпадает белая энергия
                                 if (mode.isLeviathan && e.isMinion) {
                                     const dropCount = 1 + Math.floor(Math.random() * 2);
                                     for (let k = 0; k < dropCount; k++) {
@@ -2202,7 +2988,6 @@
                                         });
                                     }
                                     addKillFeed('⚡ Выпала энергия!');
-                                    // Респавн приспешника
                                     const dead = e;
                                     setTimeout(() => {
                                         if (state.screen === 'battle' && !state.battleEnded && mode.isLeviathan) {
@@ -2213,9 +2998,14 @@
                                     }, 8000);
                                 }
                                 
+                                if (mode.isSpaceTank) {
+                                    const aliveEnemies = state.enemies.filter(en => en.hp > 0).length;
+                                    if (aliveEnemies === 0) endSpaceTank('victory');
+                                }
+                                
                                 updateHUD();
                                 if (state.autoAimTarget === e) state.autoAimTarget = null;
-                                if (mode.respawn && !mode.isDarkFront && !mode.isLeviathan) {
+                                if (mode.respawn && !mode.isDarkFront && !mode.isLeviathan && !mode.isSpaceTank) {
                                     const dead = e;
                                     setTimeout(() => {
                                         if (state.screen === 'battle' && !state.battleEnded) {
@@ -2251,9 +3041,8 @@
                     }
                 }
             } else {
-                // Вражеские пули
                 let targetsToCheck;
-                if (mode.isLeviathan) targetsToCheck = [p];  // урон по союзникам отключён
+                if (mode.isLeviathan) targetsToCheck = [p];
                 else targetsToCheck = [p, ...state.allies.filter(a => a.hp > 0 && !a.hostile)];
                 
                 for (const t of targetsToCheck) {
@@ -2261,15 +3050,37 @@
                     if (Math.hypot(b.x - t.x, b.y - t.y) < t.radius + 4) {
                         const dmg = Math.max(1, b.damage - (t.armor || 0));
                         t.hp -= dmg;
-                        createParticles(b.x, b.y, '#f44336', 5);
+                        createParticles(b.x, b.y, mode.isSpaceTank ? '#ff5252' : '#f44336', 6);
                         hit = true;
+                        
+                        if (mode.isSpaceTank) {
+                            const angleFromBullet = Math.atan2(t.y - b.y, t.x - b.x);
+                            t.vx = (t.vx || 0) + Math.cos(angleFromBullet) * CONFIG.laserKnockback;
+                            t.vy = (t.vy || 0) + Math.sin(angleFromBullet) * CONFIG.laserKnockback;
+                            if (t.isPlayer) {
+                                speedIndicator.classList.add('active');
+                                speedBarFill.style.width = '80%';
+                            }
+                        }
+                        
                         if (t.hp <= 0) {
                             if (t.isPlayer) onPlayerDeath();
                             else {
                                 state.scoreRed++;
                                 addKillFeed(`💀 ${t.name} уничтожен`);
                                 createParticles(t.x, t.y, '#666', 15);
-                                if (mode.respawn && !mode.isDarkFront && !mode.isLeviathan) {
+                                
+                                // === НОВОЕ: В Тёмном фронте — очередь на возрождение ===
+                                if (mode.isDarkFront && t.isDarkFrontAlly) {
+                                    queueAllyRespawn();
+                                }
+                                
+                                if (mode.isSpaceTank) {
+                                    const aliveAllies = state.allies.filter(al => al.hp > 0).length + (state.player.hp > 0 ? 1 : 0);
+                                    if (aliveAllies === 0) endSpaceTank('defeat');
+                                }
+                                
+                                if (mode.respawn && !mode.isDarkFront && !mode.isLeviathan && !mode.isSpaceTank) {
                                     const dead = t;
                                     setTimeout(() => {
                                         if (state.screen === 'battle' && !state.battleEnded) {
@@ -2288,7 +3099,6 @@
             if (hit) state.bullets.splice(i, 1);
         }
         
-        // Частицы
         for (let i = state.particles.length - 1; i >= 0; i--) {
             const pt = state.particles[i];
             pt.x += pt.vx * dt;
@@ -2298,7 +3108,6 @@
             if (pt.life <= 0) state.particles.splice(i, 1);
         }
         
-        // Точка захвата
         if (state.capturePoint) {
             const cp = state.capturePoint;
             let blueOnPoint = 0, redOnPoint = 0;
@@ -2327,7 +3136,7 @@
         state.enemies = state.enemies.filter(e => e.hp > 0);
         state.allies = state.allies.filter(a => a.hp > 0);
         
-        if (mode.respawn && !mode.id.includes('deathmatch') && !mode.isDarkFront && !mode.isLeviathan) {
+        if (mode.respawn && !mode.id.includes('deathmatch') && !mode.isDarkFront && !mode.isLeviathan && !mode.isSpaceTank) {
             const currentAllies = state.allies.filter(a => !a.hostile).length;
             if (currentAllies < mode.allies && Math.random() < 0.008 * dt) spawnAlly();
         }
@@ -2338,7 +3147,7 @@
     function checkBattleEnd() {
         const mode = BATTLE_MODES[state.selectedMode];
         if (state.battleEnded) return;
-        if (mode.isDarkFront || mode.isLeviathan) return;
+        if (mode.isDarkFront || mode.isLeviathan || mode.isSpaceTank) return;
         if (state.scoreBlue >= mode.scoreLimit) endBattle('victory');
         else if (state.scoreRed >= mode.scoreLimit) endBattle('defeat');
     }
@@ -2346,7 +3155,7 @@
     function endBattle(result) {
         state.battleEnded = true;
         if (state.gameLoop) cancelAnimationFrame(state.gameLoop);
-        victoryScreen.classList.remove('dark-front-win', 'leviathan-win', 'leviathan-lose');
+        victoryScreen.classList.remove('dark-front-win', 'leviathan-win', 'leviathan-lose', 'space-win', 'space-lose');
         if (result === 'victory') { victoryTitle.textContent = '🏆 ПОБЕДА!'; victoryTitle.style.color = '#ffd966'; }
         else if (result === 'defeat') { victoryTitle.textContent = '💀 ПОРАЖЕНИЕ'; victoryTitle.style.color = '#f44336'; }
         else { victoryTitle.textContent = '🤝 НИЧЬЯ'; victoryTitle.style.color = '#aaa'; }
@@ -2355,16 +3164,18 @@
     }
     
     function shoot(owner, angle, speed, damage, fromPlayer, fromAlly = false) {
+        const isBallShot = owner.isBall || owner.isBallAlly || owner.isBallEnemy;
         state.bullets.push({
             x: owner.x + Math.cos(angle) * (owner.radius + 8),
             y: owner.y + Math.sin(angle) * (owner.radius + 8),
             angle, speed, damage, fromPlayer, fromAlly,
             life: CONFIG.bulletLife,
+            isLaser: isBallShot,
         });
         createParticles(
             owner.x + Math.cos(angle) * (owner.radius + 12),
             owner.y + Math.sin(angle) * (owner.radius + 12),
-            '#ffeb3b', 6
+            isBallShot ? '#64b5f6' : '#ffeb3b', 6
         );
     }
     
@@ -2394,7 +3205,6 @@
         if (mode.isDarkFront) {
             const lost = Math.floor(state.df.playerMatter / 2);
             if (lost > 0) {
-                addKillFeed(`💧 Потеряно ${lost} материи`);
                 for (let i = 0; i < lost; i++) {
                     const angle = Math.random() * Math.PI * 2;
                     const dist = Math.random() * 60;
@@ -2406,6 +3216,11 @@
                 }
                 state.df.playerMatter -= lost;
             }
+        }
+        
+        if (mode.isSpaceTank) {
+            endSpaceTank('defeat');
+            return;
         }
         
         if (!mode.respawn) { endBattle('defeat'); return; }
@@ -2451,13 +3266,34 @@
         let gridColor = map.grid;
         if (mode.isDarkFront) { bgColor = '#0a1508'; gridColor = '#151a10'; }
         if (mode.isLeviathan) { bgColor = '#c97a3a'; gridColor = '#a85a20'; }
+        if (mode.isSpaceTank) { bgColor = '#8a8a95'; gridColor = '#7a7a85'; }
         ctx.fillStyle = bgColor;
         ctx.fillRect(0, 0, w, h);
         
         const offsetX = -cam.x + w / 2;
         const offsetY = -cam.y + h / 2;
         
-        // Сетка
+        if (mode.isSpaceTank) {
+            state.craters.forEach(cr => {
+                const sx = cr.x - cam.x + w / 2;
+                const sy = cr.y - cam.y + h / 2;
+                if (sx + cr.radius < -50 || sx - cr.radius > w + 50 || sy + cr.radius < -50 || sy - cr.radius > h + 50) return;
+                const grad = ctx.createRadialGradient(sx - cr.radius * 0.2, sy - cr.radius * 0.2, cr.radius * 0.1, sx, sy, cr.radius);
+                grad.addColorStop(0, 'rgba(90,90,100,0.5)');
+                grad.addColorStop(0.6, 'rgba(110,110,120,0.3)');
+                grad.addColorStop(1, 'rgba(140,140,150,0)');
+                ctx.fillStyle = grad;
+                ctx.beginPath();
+                ctx.arc(sx, sy, cr.radius, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.strokeStyle = 'rgba(170,170,180,0.4)';
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                ctx.arc(sx, sy, cr.radius * 0.95, 0, Math.PI * 2);
+                ctx.stroke();
+            });
+        }
+        
         const gridSize = 100;
         ctx.strokeStyle = gridColor;
         ctx.lineWidth = 1;
@@ -2474,26 +3310,79 @@
         }
         ctx.stroke();
         
-        // Препятствия
+        if (mode.isSpaceTank) {
+            state.lavaPools.forEach(lp => {
+                const sx = lp.x - cam.x + w / 2;
+                const sy = lp.y - cam.y + h / 2;
+                if (sx + lp.radius < -50 || sx - lp.radius > w + 50 || sy + lp.radius < -50 || sy - lp.radius > h + 50) return;
+                const pulse = Math.sin(lp.pulse) * 0.1 + 1;
+                const r = lp.radius * pulse;
+                const gradient = ctx.createRadialGradient(sx, sy, r * 0.3, sx, sy, r * 1.3);
+                gradient.addColorStop(0, 'rgba(255,87,34,0.5)');
+                gradient.addColorStop(0.5, 'rgba(255,152,0,0.3)');
+                gradient.addColorStop(1, 'rgba(255,87,34,0)');
+                ctx.fillStyle = gradient;
+                ctx.beginPath();
+                ctx.arc(sx, sy, r * 1.3, 0, Math.PI * 2);
+                ctx.fill();
+                const lavaGrad = ctx.createRadialGradient(sx - r * 0.3, sy - r * 0.3, r * 0.1, sx, sy, r);
+                lavaGrad.addColorStop(0, '#ffeb3b');
+                lavaGrad.addColorStop(0.3, '#ff9800');
+                lavaGrad.addColorStop(0.7, '#ff5722');
+                lavaGrad.addColorStop(1, '#b71c1c');
+                ctx.fillStyle = lavaGrad;
+                ctx.beginPath();
+                ctx.arc(sx, sy, r, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = 'rgba(255,235,59,0.6)';
+                for (let i = 0; i < 5; i++) {
+                    const angle = (lp.pulse + i * 1.3);
+                    const dist = r * 0.4;
+                    const bx = sx + Math.cos(angle) * dist;
+                    const by = sy + Math.sin(angle) * dist;
+                    ctx.beginPath();
+                    ctx.arc(bx, by, 8 + Math.sin(lp.pulse * 2 + i) * 4, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                ctx.strokeStyle = 'rgba(60,30,10,0.6)';
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                ctx.arc(sx, sy, r, 0, Math.PI * 2);
+                ctx.stroke();
+            });
+        }
+        
         state.obstacles.forEach(o => {
             const sx = o.x - cam.x + w / 2;
             const sy = o.y - cam.y + h / 2;
             if (sx + o.w < -20 || sx > w + 20 || sy + o.h < -20 || sy > h + 20) return;
             ctx.fillStyle = 'rgba(0,0,0,0.4)';
             ctx.fillRect(sx + 3, sy + 3, o.w, o.h);
-            ctx.fillStyle = mode.isLeviathan ? '#8a3a10' : (mode.isDarkFront ? '#1a2a1a' : o.color);
-            ctx.fillRect(sx, sy, o.w, o.h);
+            let col = o.color;
+            if (mode.isLeviathan) col = '#8a3a10';
+            if (mode.isDarkFront) col = '#1a2a1a';
+            if (mode.isSpaceTank) col = '#6a6a75';
+            if (mode.isSpaceTank) {
+                const rockGrad = ctx.createLinearGradient(sx, sy, sx + o.w, sy + o.h);
+                rockGrad.addColorStop(0, '#a0a0aa');
+                rockGrad.addColorStop(0.5, col);
+                rockGrad.addColorStop(1, '#5a5a65');
+                ctx.fillStyle = rockGrad;
+            } else {
+                ctx.fillStyle = col;
+            }
+            roundRect(ctx, sx, sy, o.w, o.h, mode.isSpaceTank ? 8 : 2);
+            ctx.fill();
             ctx.strokeStyle = 'rgba(0,0,0,0.6)';
             ctx.lineWidth = 2;
-            ctx.strokeRect(sx, sy, o.w, o.h);
-            ctx.strokeStyle = 'rgba(255,255,255,0.15)';
-            ctx.lineWidth = 1;
-            ctx.beginPath();
-            ctx.moveTo(sx, sy); ctx.lineTo(sx + o.w, sy + o.h);
             ctx.stroke();
+            if (mode.isSpaceTank) {
+                ctx.fillStyle = 'rgba(255,255,255,0.2)';
+                roundRect(ctx, sx + 4, sy + 4, o.w * 0.4, o.h * 0.3, 4);
+                ctx.fill();
+            }
         });
         
-        // Врата Левиафана
         if (mode.isLeviathan && state.lv.gates) {
             const g = state.lv.gates;
             const gx = g.x - cam.x + w / 2;
@@ -2517,11 +3406,6 @@
             ctx.stroke();
             ctx.setLineDash([]);
             ctx.shadowBlur = 0;
-            ctx.strokeStyle = 'rgba(100,181,246,0.6)';
-            ctx.lineWidth = 2;
-            ctx.beginPath();
-            ctx.arc(gx, gy, g.radius - 20, 0, Math.PI * 2);
-            ctx.stroke();
             ctx.fillStyle = '#64b5f6';
             ctx.font = 'bold 60px sans-serif';
             ctx.textAlign = 'center';
@@ -2530,12 +3414,8 @@
             ctx.shadowColor = '#64b5f6';
             ctx.fillText('🌀', gx, gy);
             ctx.shadowBlur = 0;
-            ctx.fillStyle = '#64b5f6';
-            ctx.font = 'bold 14px sans-serif';
-            ctx.fillText('ВРАТА В МИР ЛЮДЕЙ', gx, gy - g.radius - 15);
         }
         
-        // База Тёмного фронта
         if (mode.isDarkFront && state.df.base) {
             const base = state.df.base;
             const bx = base.x - cam.x + w / 2;
@@ -2560,12 +3440,8 @@
             ctx.shadowColor = '#76ff03';
             ctx.fillText('📦', bx, by);
             ctx.shadowBlur = 0;
-            ctx.fillStyle = '#76ff03';
-            ctx.font = 'bold 14px sans-serif';
-            ctx.fillText('БАЗА', bx, by - base.radius - 15);
         }
         
-        // Материя
         if (mode.isDarkFront) {
             state.df.matterOnGround.forEach(m => {
                 const sx = m.x - cam.x + w / 2;
@@ -2584,14 +3460,9 @@
                 ctx.beginPath();
                 ctx.arc(sx, sy, 6 + pulse * 0.3, 0, Math.PI * 2);
                 ctx.fill();
-                ctx.fillStyle = '#ccff90';
-                ctx.beginPath();
-                ctx.arc(sx, sy, 3, 0, Math.PI * 2);
-                ctx.fill();
             });
         }
         
-        // Белая энергия
         if (mode.isLeviathan) {
             state.energyDrops.forEach(e => {
                 const sx = e.x - cam.x + w / 2;
@@ -2599,14 +3470,13 @@
                 if (sx < -40 || sx > w + 40 || sy < -40 || sy > h + 40) return;
                 e.pulse += 0.1;
                 const pulse = Math.sin(e.pulse) * 3;
-                const glowSize = 20 + pulse;
-                const gradient = ctx.createRadialGradient(sx, sy, 0, sx, sy, glowSize * 1.5);
+                const gradient = ctx.createRadialGradient(sx, sy, 0, sx, sy, 30);
                 gradient.addColorStop(0, 'rgba(255,255,255,0.9)');
                 gradient.addColorStop(0.5, 'rgba(255,255,255,0.4)');
                 gradient.addColorStop(1, 'rgba(255,255,255,0)');
                 ctx.fillStyle = gradient;
                 ctx.beginPath();
-                ctx.arc(sx, sy, glowSize * 1.5, 0, Math.PI * 2);
+                ctx.arc(sx, sy, 30, 0, Math.PI * 2);
                 ctx.fill();
                 ctx.fillStyle = '#ffffff';
                 ctx.shadowBlur = 20;
@@ -2621,7 +3491,6 @@
             });
         }
         
-        // Точка захвата
         if (state.capturePoint) {
             const cp = state.capturePoint;
             const sx = cp.x - cam.x + w / 2;
@@ -2644,12 +3513,14 @@
             ctx.fillText('A', sx, sy);
         }
         
-        // Границы
-        ctx.strokeStyle = mode.isDarkFront ? '#1a3a1a' : (mode.isLeviathan ? '#4a2a10' : map.border);
+        let borderColor = map.border;
+        if (mode.isDarkFront) borderColor = '#1a3a1a';
+        if (mode.isLeviathan) borderColor = '#4a2a10';
+        if (mode.isSpaceTank) borderColor = '#5a5a65';
+        ctx.strokeStyle = borderColor;
         ctx.lineWidth = 4;
         ctx.strokeRect(offsetX, offsetY, CONFIG.worldWidth, CONFIG.worldHeight);
         
-        // Левиафан
         if (mode.isLeviathan && state.lv.boss && state.lv.boss.hp > 0) {
             const boss = state.lv.boss;
             const bx = boss.x - cam.x + w / 2;
@@ -2665,7 +3536,6 @@
             drawTankIcon(ctx, boss.tankData, bx, by, 1, boss.angle, { isLeviathan: true });
         }
         
-        // Пули
         state.bullets.forEach(b => {
             const sx = b.x - cam.x + w / 2;
             const sy = b.y - cam.y + h / 2;
@@ -2678,34 +3548,52 @@
                 if (b.fromPlayer || b.fromAlly) color = '#64b5f6';
                 else color = '#ff1744';
             }
-            ctx.shadowBlur = 12;
+            if (mode.isSpaceTank || b.isLaser) {
+                if (b.fromPlayer || b.fromAlly) color = '#64b5f6';
+                else color = '#ff5252';
+            }
+            ctx.shadowBlur = b.isLaser ? 20 : 12;
             ctx.shadowColor = color;
             ctx.fillStyle = color;
-            ctx.beginPath();
-            ctx.ellipse(0, 0, 8, 3, 0, 0, Math.PI * 2);
-            ctx.fill();
+            if (b.isLaser) {
+                ctx.fillRect(-12, -1.5, 24, 3);
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(-10, -0.5, 20, 1);
+            } else {
+                ctx.beginPath();
+                ctx.ellipse(0, 0, 8, 3, 0, 0, Math.PI * 2);
+                ctx.fill();
+            }
             ctx.restore();
         });
         
-        // Частицы
         state.particles.forEach(pt => {
             const sx = pt.x - cam.x + w / 2;
             const sy = pt.y - cam.y + h / 2;
-            if (sx < -20 || sx > w + 20 || sy < -20 || sy > h + 20) return;
+            if (sx < -30 || sx > w + 30 || sy < -30 || sy > h + 30) return;
             ctx.globalAlpha = Math.max(0, pt.life / pt.maxLife);
             ctx.fillStyle = pt.color;
-            if (pt.color === '#ffffff' || pt.color === '#76ff03') {
-                ctx.shadowBlur = 15;
-                ctx.shadowColor = pt.color;
+            if (pt.isMeteor) {
+                ctx.shadowBlur = 30;
+                ctx.shadowColor = '#ff5722';
+                const r = 30 * (1 - pt.life / pt.maxLife * 0.5);
+                ctx.beginPath();
+                ctx.arc(sx, sy, r, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.shadowBlur = 0;
+            } else {
+                if (pt.color === '#ffffff' || pt.color === '#76ff03' || pt.color === '#64b5f6') {
+                    ctx.shadowBlur = 15;
+                    ctx.shadowColor = pt.color;
+                }
+                ctx.beginPath();
+                ctx.arc(sx, sy, pt.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.shadowBlur = 0;
             }
-            ctx.beginPath();
-            ctx.arc(sx, sy, pt.size, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.shadowBlur = 0;
             ctx.globalAlpha = 1;
         });
         
-        // Танки
         const allTanks = [...state.enemies, ...state.allies, state.player].filter(t => t && t.hp > 0);
         allTanks.sort((a, b) => a.y - b.y);
         
@@ -2741,6 +3629,27 @@
                 ctx.arc(sx, sy, 60, 0, Math.PI * 2);
                 ctx.fill();
             }
+            if (mode.isSpaceTank && t.isBall) {
+                const speedFromKnock = Math.hypot(t.vx || 0, t.vy || 0);
+                if (speedFromKnock > 2) {
+                    const gradient = ctx.createRadialGradient(sx, sy, 0, sx, sy, 60);
+                    const color = t.isBallEnemy ? '255,82,82' : '100,181,246';
+                    gradient.addColorStop(0, `rgba(${color},${Math.min(0.5, speedFromKnock / 40)})`);
+                    gradient.addColorStop(1, `rgba(${color},0)`);
+                    ctx.fillStyle = gradient;
+                    ctx.beginPath();
+                    ctx.arc(sx, sy, 60, 0, Math.PI * 2);
+                    ctx.fill();
+                } else {
+                    const gradient = ctx.createRadialGradient(sx, sy, 0, sx, sy, 45);
+                    gradient.addColorStop(0, t.isBallEnemy ? 'rgba(255,82,82,0.2)' : 'rgba(100,181,246,0.2)');
+                    gradient.addColorStop(1, t.isBallEnemy ? 'rgba(255,82,82,0)' : 'rgba(100,181,246,0)');
+                    ctx.fillStyle = gradient;
+                    ctx.beginPath();
+                    ctx.arc(sx, sy, 45, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
             
             drawTankIcon(ctx, t.tankData || t, sx, sy, t.isPlayer ? 1.15 : 1, t.angle, {
                 isZombie: t.isZombie, isDarkFrontAlly: t.isDarkFrontAlly,
@@ -2748,6 +3657,7 @@
                 isLeviathan: t.isLeviathan, isMinion: t.isMinion,
                 isRedEventTank: t.isRedEventTank,
                 isRedFrankie: t.isRedFrankie, isRedStein: t.isRedStein,
+                isBall: t.isBall, isBallAlly: t.isBallAlly, isBallEnemy: t.isBallEnemy,
             });
             
             if (t.hp < t.maxHp && !t.isLeviathan) {
@@ -2764,19 +3674,8 @@
                 ctx.fillRect(bx, by, barW * ratio, barH);
             }
             
-            // Индикатор несомой материи у союзников
-            if (mode.isDarkFront && t.isDarkFrontAlly && t.carriesMatter > 0) {
-                ctx.fillStyle = '#76ff03';
-                ctx.font = 'bold 12px sans-serif';
-                ctx.textAlign = 'center';
-                ctx.shadowBlur = 8;
-                ctx.shadowColor = '#76ff03';
-                ctx.fillText(`🧪 ${t.carriesMatter}`, sx, sy - 42);
-                ctx.shadowBlur = 0;
-            }
-            
             if (t.isPlayer) {
-                ctx.strokeStyle = mode.isLeviathan ? '#64b5f6' : (mode.isDarkFront ? '#76ff03' : '#ffd966');
+                ctx.strokeStyle = mode.isLeviathan ? '#64b5f6' : (mode.isDarkFront ? '#76ff03' : (mode.isSpaceTank ? '#64b5f6' : '#ffd966'));
                 ctx.lineWidth = 2;
                 ctx.beginPath();
                 ctx.arc(sx, sy, 32, 0, Math.PI * 2);
@@ -2784,7 +3683,6 @@
             }
         });
         
-        // Подсветка цели
         if (state.autoAim && state.autoAimTarget && state.autoAimTarget.hp > 0) {
             const target = state.autoAimTarget;
             const tx = target.x - cam.x + w / 2;
@@ -2799,13 +3697,16 @@
             ctx.setLineDash([]);
         }
         
-        // Прицел
         if (state.player && state.player.hp > 0 && !state.autoAim) {
             const px = state.player.x - cam.x + w / 2;
             const py = state.player.y - cam.y + h / 2;
             const aimX = px + Math.cos(state.player.angle) * 100;
             const aimY = py + Math.sin(state.player.angle) * 100;
-            ctx.strokeStyle = mode.isLeviathan ? 'rgba(100,181,246,0.8)' : (mode.isDarkFront ? 'rgba(118,255,3,0.7)' : 'rgba(255,217,102,0.7)');
+            let aimColor = 'rgba(255,217,102,0.7)';
+            if (mode.isLeviathan) aimColor = 'rgba(100,181,246,0.8)';
+            if (mode.isDarkFront) aimColor = 'rgba(118,255,3,0.7)';
+            if (mode.isSpaceTank) aimColor = 'rgba(100,181,246,0.8)';
+            ctx.strokeStyle = aimColor;
             ctx.lineWidth = 2;
             ctx.beginPath();
             ctx.arc(aimX, aimY, 10, 0, Math.PI * 2);
@@ -2816,47 +3717,6 @@
             ctx.moveTo(aimX, aimY - 15); ctx.lineTo(aimX, aimY - 5);
             ctx.moveTo(aimX, aimY + 5); ctx.lineTo(aimX, aimY + 15);
             ctx.stroke();
-        }
-        
-        // Стрелка на базу (Тёмный фронт)
-        if (mode.isDarkFront && state.df.playerMatter > 0 && state.player) {
-            const base = state.df.base;
-            const px = state.player.x - cam.x + w / 2;
-            const py = state.player.y - cam.y + h / 2;
-            const angleToBase = Math.atan2(base.y - state.player.y, base.x - state.player.x);
-            const ax = px + Math.cos(angleToBase) * 70;
-            const ay = py + Math.sin(angleToBase) * 70;
-            ctx.save();
-            ctx.translate(ax, ay);
-            ctx.rotate(angleToBase);
-            ctx.fillStyle = '#76ff03';
-            ctx.shadowBlur = 15;
-            ctx.shadowColor = '#76ff03';
-            ctx.beginPath();
-            ctx.moveTo(10, 0);
-            ctx.lineTo(-8, -8);
-            ctx.lineTo(-4, 0);
-            ctx.lineTo(-8, 8);
-            ctx.closePath();
-            ctx.fill();
-            ctx.restore();
-        }
-        
-        // Таймер штурма
-        if (state.battleTimeLimit > 0 && !mode.isDarkFront && !mode.isLeviathan) {
-            const remaining = Math.max(0, Math.ceil((state.battleTimeLimit - state.battleTime) / 60));
-            ctx.fillStyle = 'rgba(0,0,0,0.7)';
-            ctx.fillRect(w/2 - 40, 40, 80, 26);
-            ctx.strokeStyle = '#ffd966';
-            ctx.lineWidth = 2;
-            ctx.strokeRect(w/2 - 40, 40, 80, 26);
-            ctx.fillStyle = remaining < 30 ? '#f44336' : '#fff';
-            ctx.font = 'bold 16px sans-serif';
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
-            const min = Math.floor(remaining / 60);
-            const sec = remaining % 60;
-            ctx.fillText(`${min}:${sec.toString().padStart(2, '0')}`, w/2, 53);
         }
         
         renderMinimap();
@@ -2872,11 +3732,24 @@
         let bgColor = map.bg;
         if (mode.isDarkFront) bgColor = '#0a1508';
         if (mode.isLeviathan) bgColor = '#c97a3a';
+        if (mode.isSpaceTank) bgColor = '#8a8a95';
         minimapCtx.fillStyle = bgColor;
         minimapCtx.fillRect(0, 0, mw, mh);
         
         const scaleX = mw / CONFIG.worldWidth;
         const scaleY = mh / CONFIG.worldHeight;
+        
+        if (mode.isSpaceTank) {
+            state.lavaPools.forEach(lp => {
+                minimapCtx.fillStyle = 'rgba(255,87,34,0.5)';
+                minimapCtx.beginPath();
+                minimapCtx.arc(lp.x * scaleX, lp.y * scaleY, lp.radius * scaleX, 0, Math.PI * 2);
+                minimapCtx.fill();
+                minimapCtx.strokeStyle = '#ff5722';
+                minimapCtx.lineWidth = 1.5;
+                minimapCtx.stroke();
+            });
+        }
         
         minimapCtx.fillStyle = 'rgba(0,0,0,0.4)';
         state.obstacles.forEach(o => {
@@ -2900,50 +3773,24 @@
             minimapCtx.beginPath();
             minimapCtx.arc(b.x * scaleX, b.y * scaleY, b.radius * scaleX, 0, Math.PI * 2);
             minimapCtx.fill();
-            minimapCtx.strokeStyle = '#76ff03';
-            minimapCtx.lineWidth = 1.5;
-            minimapCtx.stroke();
         }
         
-        // Материя
-        if (mode.isDarkFront) {
-            state.df.matterOnGround.forEach(m => {
-                minimapCtx.fillStyle = '#76ff03';
-                minimapCtx.beginPath();
-                minimapCtx.arc(m.x * scaleX, m.y * scaleY, 2, 0, Math.PI * 2);
-                minimapCtx.fill();
-            });
-        }
-        
-        // Энергия
-        if (mode.isLeviathan) {
-            state.energyDrops.forEach(e => {
-                minimapCtx.fillStyle = '#ffffff';
-                minimapCtx.beginPath();
-                minimapCtx.arc(e.x * scaleX, e.y * scaleY, 2.5, 0, Math.PI * 2);
-                minimapCtx.fill();
-            });
-        }
-        
-        // Враги
         state.enemies.forEach(e => {
             if (e.hp <= 0) return;
-            minimapCtx.fillStyle = e.isMinion || e.isRedEventTank ? '#ff1744' : (e.isZombie ? '#4a7a4a' : '#f44336');
+            minimapCtx.fillStyle = e.isMinion || e.isRedEventTank ? '#ff1744' : (e.isBallEnemy ? '#ef5350' : (e.isZombie ? '#4a7a4a' : '#f44336'));
             minimapCtx.beginPath();
-            minimapCtx.arc(e.x * scaleX, e.y * scaleY, 4, 0, Math.PI * 2);
+            minimapCtx.arc(e.x * scaleX, e.y * scaleY, e.isBallEnemy ? 4.5 : 4, 0, Math.PI * 2);
             minimapCtx.fill();
         });
         
-        // Союзники
         state.allies.forEach(a => {
             if (a.hp <= 0) return;
-            minimapCtx.fillStyle = a.isEventTank ? '#64b5f6' : (a.isDarkFrontAlly ? '#ff5252' : (a.hostile ? '#e91e63' : '#64b5f6'));
+            minimapCtx.fillStyle = a.isBallAlly ? '#42a5f5' : (a.isEventTank ? '#64b5f6' : (a.isDarkFrontAlly ? '#ff5252' : (a.hostile ? '#e91e63' : '#64b5f6')));
             minimapCtx.beginPath();
-            minimapCtx.arc(a.x * scaleX, a.y * scaleY, 3.5, 0, Math.PI * 2);
+            minimapCtx.arc(a.x * scaleX, a.y * scaleY, a.isBallAlly ? 4.5 : 3.5, 0, Math.PI * 2);
             minimapCtx.fill();
         });
         
-        // Левиафан
         if (mode.isLeviathan && state.lv.boss && state.lv.boss.hp > 0) {
             const boss = state.lv.boss;
             minimapCtx.fillStyle = '#808080';
@@ -2957,19 +3804,24 @@
             minimapCtx.stroke();
         }
         
-        // Игрок
         if (state.player && state.player.hp > 0) {
             const px = state.player.x * scaleX;
             const py = state.player.y * scaleY;
-            minimapCtx.fillStyle = mode.isLeviathan ? 'rgba(100,181,246,0.2)' : (mode.isDarkFront ? 'rgba(118,255,3,0.15)' : 'rgba(255,217,102,0.1)');
+            let playerColor = '#ffd966';
+            if (mode.isLeviathan || mode.isSpaceTank) playerColor = '#64b5f6';
+            if (mode.isDarkFront) playerColor = '#76ff03';
+            
+            minimapCtx.fillStyle = mode.isSpaceTank ? 'rgba(100,181,246,0.25)' : (mode.isLeviathan ? 'rgba(100,181,246,0.2)' : (mode.isDarkFront ? 'rgba(118,255,3,0.15)' : 'rgba(255,217,102,0.1)'));
             minimapCtx.beginPath();
             minimapCtx.arc(px, py, 30, 0, Math.PI * 2);
             minimapCtx.fill();
-            minimapCtx.fillStyle = mode.isLeviathan ? '#64b5f6' : (mode.isDarkFront ? '#76ff03' : '#ffd966');
+            
+            minimapCtx.fillStyle = playerColor;
             minimapCtx.beginPath();
-            minimapCtx.arc(px, py, 5, 0, Math.PI * 2);
+            minimapCtx.arc(px, py, mode.isSpaceTank ? 5.5 : 5, 0, Math.PI * 2);
             minimapCtx.fill();
-            minimapCtx.strokeStyle = mode.isLeviathan ? '#64b5f6' : (mode.isDarkFront ? '#76ff03' : '#ffd966');
+            
+            minimapCtx.strokeStyle = playerColor;
             minimapCtx.lineWidth = 2;
             minimapCtx.beginPath();
             minimapCtx.moveTo(px, py);
@@ -2977,7 +3829,11 @@
             minimapCtx.stroke();
         }
         
-        minimapCtx.strokeStyle = mode.isLeviathan ? '#ff9800' : (mode.isDarkFront ? '#76ff03' : '#ffd966');
+        let borderColor = '#ffd966';
+        if (mode.isSpaceTank) borderColor = '#5a5a65';
+        else if (mode.isLeviathan) borderColor = '#ff9800';
+        else if (mode.isDarkFront) borderColor = '#76ff03';
+        minimapCtx.strokeStyle = borderColor;
         minimapCtx.lineWidth = 2;
         minimapCtx.strokeRect(1, 1, mw - 2, mh - 2);
     }
@@ -3010,12 +3866,12 @@
     respawnBtn.addEventListener('touchstart', e => { e.preventDefault(); respawnBtn.click(); }, { passive: false });
     
     victoryBtn.addEventListener('click', () => {
-        victoryScreen.classList.remove('active', 'dark-front-win', 'leviathan-win', 'leviathan-lose');
+        victoryScreen.classList.remove('active', 'dark-front-win', 'leviathan-win', 'leviathan-lose', 'space-win', 'space-lose');
         showScreen('hangar');
     });
     victoryBtn.addEventListener('touchstart', e => {
         e.preventDefault();
-        victoryScreen.classList.remove('active', 'dark-front-win', 'leviathan-win', 'leviathan-lose');
+        victoryScreen.classList.remove('active', 'dark-front-win', 'leviathan-win', 'leviathan-lose', 'space-win', 'space-lose');
         showScreen('hangar');
     }, { passive: false });
     
@@ -3051,7 +3907,7 @@
     }
     
     console.log('🎮 Танковый мир 2D загружен!');
-    console.log('🧟 Тёмный фронт: кнопка сдачи материи исправлена!');
+    console.log('🔄 Тёмный фронт: союзники возрождаются через 8 секунд!');
 })();
 </script>
 </body>
